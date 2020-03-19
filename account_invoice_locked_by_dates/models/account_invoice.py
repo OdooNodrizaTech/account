@@ -13,7 +13,7 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         validate_invoice_ok = True                
                 
-        date_limit = self.env['ir.config_parameter'].sudo().get_param('ont_account_invoice_locked_by_date_date_limit')
+        date_limit = self.env['ir.config_parameter'].sudo().get_param('account_invoice_locked_by_date_date_limit')
         if date_limit!=False:
             current_date = datetime.today()
             current_date_format = current_date.strftime("%Y-%m-%d")
@@ -43,7 +43,7 @@ class AccountInvoice(models.Model):
     def action_invoice_cancel(self):
         cancel_invoice_ok = True                
         
-        date_limit = self.env['ir.config_parameter'].sudo().get_param('ont_account_invoice_locked_by_date_date_limit')
+        date_limit = self.env['ir.config_parameter'].sudo().get_param('account_invoice_locked_by_date_date_limit')
         if date_limit!=False:
             current_date = datetime.today()
             current_date_format = current_date.strftime("%Y-%m-%d")

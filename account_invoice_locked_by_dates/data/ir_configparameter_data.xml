@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        <record id="ont_account_invoice_locked_by_date_date_limit" model="ir.config_parameter">
-            <field name="key">ont_account_invoice_locked_by_date_date_limit</field>
+        <record id="account_invoice_locked_by_date_date_limit" model="ir.config_parameter">
+            <field name="key">account_invoice_locked_by_date_date_limit</field>
             <field name="value">2010-01-01</field>
         </record>                                                            
     </data>
