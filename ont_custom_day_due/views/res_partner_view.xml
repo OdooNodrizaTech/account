@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_custom_day_due_by_partners" model="ir.ui.view">
+        <field name="name">res.partner.view.custom_day_due_by_partners</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">                        
+            <page name="sales_purchases" position="after">
+                <page name="custom_day_due_by_partners" string="Dias de pago">
+                    <group name="custom_day_due_by_partners_group" col="3">
+                        <group string="Varios" name="custom_day_due_by_partners_group_1" col="1" colspan="3">
+                            <field name="custom_day_due_1" />
+                            <field name="custom_day_due_2" />
+                            <field name="custom_day_due_3" />
+                            <field name="custom_day_due_4" />                            
+                        </group>                        
+                    </group>                                                            
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
