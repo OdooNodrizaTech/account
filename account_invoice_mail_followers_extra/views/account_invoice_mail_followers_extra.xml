@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_invoice_mail_followers_extra_action" model="ir.actions.act_window">
+        <field name="name">Seguidores extra facturas</field>
+        <field name="res_model">account_invoice_mail_followers_extra</field>
+        <field name="view_mode">tree,form</field>                
+    </record>
+    <record id="account_invoice_mail_followers_extra_action_tree" model="ir.ui.view">
+            <field name="name">Seguidores extra facturas</field>
+            <field name="model">account_invoice_mail_followers_extra</field>
+             <field name="arch" type="xml">
+                <tree string="Expediciones">
+                    <field name="partner_id"/>                    
+                </tree>
+            </field>            
+        </record>          
+    <menuitem 
+        action="account_invoice_mail_followers_extra_action" 
+        name="Seguidores extra facturas"
+        id="menuitem_account_invoice_mail_followers_extra" 
+        parent="sales_team.menu_sales"
+        sequence="10"
+    />                
+</odoo>
