@@ -1,0 +1,2 @@
+import account_banking_mandate
+import res_partner_bank
