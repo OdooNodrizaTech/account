@@ -1,1 +1,3 @@
-El módulo contiene el desarrollo para todo lo relacionado con facturas, pedidos y algo de leads.
+El módulo añade campos (ya existentes) a diferentes vistas de facturas, asientos, apuntes, etc
+
+Añade el apartado de modo de pago a los pedidos de venta (sale.order)
