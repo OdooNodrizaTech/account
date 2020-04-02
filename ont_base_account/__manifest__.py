@@ -13,7 +13,7 @@
         'views/account_invoice.xml',
         'views/account_move.xml',
         'views/account_move_line.xml',
-        'views/res_partner.xml',
+        'views/account_payment_mode.xml',
         'views/sale_order.xml',
     ],
     'installable': True,

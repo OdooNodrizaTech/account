@@ -1,0 +1,48 @@
+<openerp>
+    <data noupdate="1">
+        <record id="cron_fix_website_description_sale_quotes" model="ir.cron">
+            <field name="name">Check Website Description - Sale Quotes</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="model" eval="'sale.order'" />
+            <field name="function" eval="'cron_fix_website_description_sale_quotes'" />
+            <field name="args" eval="" />
+        </record>
+        <record id="cron_done_orders_full_invoiced" model="ir.cron">
+            <field name="name">Done Orders Full Invoiced</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model" eval="'sale.order'" />
+            <field name="function" eval="'cron_done_orders_full_invoiced'" />
+            <field name="args" eval="" />
+        </record>
+        <record id="cron_operations_sale_order_autogenerate_invoices" model="ir.cron">
+            <field name="name">Auto generate Invoices</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model" eval="'sale.order'" />
+            <field name="function" eval="'cron_operations_sale_order_autogenerate_invoices'" />
+            <field name="args" eval="" />
+        </record>
+        <record id="cron_fix_set_date_invoice_sale_orders" model="ir.cron">
+            <field name="name">Fix set date invoice sale orders</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model" eval="'sale.order'" />
+            <field name="function" eval="'cron_fix_set_date_invoice_sale_orders'" />
+            <field name="args" eval="" />
+        </record>                        
+    </data>
+</openerp>

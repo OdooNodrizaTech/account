@@ -1,4 +1,6 @@
 import account_asset_asset
 import account_fiscal_position
 import account_invoice
+import account_payment_mode
+import account_payment_term
 import sale_order
