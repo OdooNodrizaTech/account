@@ -15,4 +15,5 @@ nombre | version
 [odoo_float_round](odoo_float_round/) | 10.0.1.0.0
 [ont_account_balance_reporting](ont_account_balance_reporting/) | 10.0.1.0.0
 [ont_base_account](ont_base_account/) | 10.0.1.0.0
+[ont_margin_account](ont_margin_account/) | 10.0.1.0.0
 [partner_bank_iban_convert](partner_bank_iban_convert/) | 10.0.1.0.0
