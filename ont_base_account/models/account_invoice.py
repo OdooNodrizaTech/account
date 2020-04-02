@@ -19,19 +19,25 @@ class AccountInvoice(models.Model):
     
     @api.multi
     def action_invoice_open(self):
-        if self.partner_id.vat==False:
-            raise Warning("Es necesario definir un CIF/NIF para el cliente de la factura.\n")
-        elif self.type=="in_invoice" and self.reference==False:
-            raise Warning("Es necesario definir una referencia de proveedor para validar la factura de compra.\n")            
-        else:
-            return super(AccountInvoice, self).action_invoice_open()
+        allow_confirm = True
+        #check
+        for obj in self:
+            if obj.partner_id.vat==False:
+                allow_confirm = False
+                raise Warning("Es necesario definir un CIF/NIF para el cliente de la factura.\n")
+            elif obj.type=="in_invoice" and obj.reference==False:
+                allow_confirm = False
+                raise Warning("Es necesario definir una referencia de proveedor para validar la factura de compra.\n")
+        #allow_confirm
+        if allow_confirm==True:
+            return super(AccountInvoice, self).action_invoice_open()        
     
     @api.multi        
     def _partner_bank_name(self):
-        for account_invoice in self:
-            account_invoice.partner_bank_name = ''
-            if account_invoice.partner_bank_id.id>0:
-                if account_invoice.partner_bank_id.bank_id.id>0:
-                    account_invoice.partner_bank_name = account_invoice.partner_bank_id.bank_id.name + ' ' + account_invoice.partner_bank_id.acc_number[-4:]
+        for obj in self:
+            obj.partner_bank_name = ''
+            if obj.partner_bank_id.id>0:
+                if obj.partner_bank_id.bank_id.id>0:
+                    obj.partner_bank_name = obj.partner_bank_id.bank_id.name + ' ' + obj.partner_bank_id.acc_number[-4:]
                 else:
-                    account_invoice.partner_bank_name = account_invoice.partner_bank_id.acc_number                                                                                                                                                                                                          
+                    obj.partner_bank_name = obj.partner_bank_id.acc_number                                                                                                                                                                                                          
