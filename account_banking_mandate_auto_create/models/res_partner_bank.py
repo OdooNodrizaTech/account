@@ -13,7 +13,7 @@ class ResPartnerBank(models.Model):
     def create(self, values):
         return_create = super(ResPartnerBank, self).create(values)
         return_create.auto_create_banking_mandate_item()        
-        return return_create
+        return return_create        
         
     @api.one    
     def auto_create_banking_mandate_item(self):
@@ -41,21 +41,5 @@ class ResPartnerBank(models.Model):
                             'signature_date': current_date.strftime("%Y-%m-%d"),                                                             
                         }
                         account_banking_mandate_obj = self.env['account.banking.mandate'].sudo().create(account_banking_mandate_vals)
-                        #save_log
-                        automation_log_vals = {                    
-                            'model': 'account.banking.mandate',
-                            'res_id': account_banking_mandate_obj.id,
-                            'category': 'account_banking_mandate',
-                            'action': 'create',                                                                                                                                                                                           
-                        }
-                        automation_log_obj = self.env['automation.log'].sudo().create(automation_log_vals)
                         #validate
-                        account_banking_mandate_obj.validate()
-                        #save_log
-                        automation_log_vals = {                    
-                            'model': 'account.banking.mandate',
-                            'res_id': account_banking_mandate_obj.id,
-                            'category': 'account_banking_mandate',
-                            'action': 'validate',                                                                                                                                                                                           
-                        }
-                        automation_log_obj = self.env['automation.log'].sudo().create(automation_log_vals)                                    
+                        account_banking_mandate_obj.validate()                                                            

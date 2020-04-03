@@ -6,7 +6,7 @@
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'sale', 'account', 'account_banking_mandate', 'ont_automation_base'],
+    'depends': ['base', 'sale', 'account', 'account_banking_mandate'],
     'data': [
         'data/ir_cron.xml',
         'views/account_banking_mandate_view.xml',                 
