@@ -18,11 +18,6 @@ class SaleOrder(models.Model):
     total_cashondelivery = fields.Float( 
         string='Total contrareembolso'
     )    
-    partner_id_credit_limit = fields.Float(
-        compute='_get_partner_id_credit_limit',
-        store=False,
-        string='Credito concedido'
-    )
     date_order_management = fields.Datetime(
         string='Fecha gestion', 
         readonly=True
@@ -30,17 +25,7 @@ class SaleOrder(models.Model):
     date_order_send_mail = fields.Datetime(
         string='Fecha envio email', 
         readonly=True
-    )
-    date_invoice = fields.Date(
-        string='Fecha factura', 
-    )
-    claim = fields.Boolean( 
-        string='Es una reposicion'
-    )
-    claim_id = fields.Many2one(
-        comodel_name='crm.claim', 
-        string='Reclamacion'
-    )
+    )        
     disable_autogenerate_create_invoice = fields.Boolean( 
         string='Desactivar auto facturar'
     )    
@@ -156,12 +141,7 @@ class SaleOrder(models.Model):
                             if user_id.id!=self.user_id.id:
                                 self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))                            
                                                                 
-            return return_object
-    
-    @api.one        
-    def _get_partner_id_credit_limit(self):
-        for sale_order_obj in self:
-            sale_order_obj.partner_id_credit_limit = sale_order_obj.partner_id.credit_limit                    
+            return return_object                    
     
     @api.one        
     def _get_partner_id_state_id(self):
@@ -195,12 +175,7 @@ class SaleOrder(models.Model):
             if self.template_id.delivery_carrier_id.id>0:
                 self.carrier_id = self.template_id.delivery_carrier_id
             else:
-                self.carrier_id = False
-                
-    @api.onchange('claim_id')
-    def change_claim_id(self):
-        if self.claim_id.id>0 and self.partner_id.id==0:
-            self.partner_id = self.claim_id.partner_id
+                self.carrier_id = False                    
     
     @api.multi
     def action_confirm(self):
@@ -286,35 +261,7 @@ class SaleOrder(models.Model):
     @api.multi    
     def cron_fix_website_description_sale_quotes(self, cr=None, uid=False, context=None):                
         self.env.cr.execute("UPDATE sale_order_line SET website_description = NULL WHERE id > 0")
-        self.env.cr.execute("UPDATE sale_order SET website_description = (SELECT website_description FROM sale_quote_template WHERE id = template_id)")        
-        
-    @api.multi    
-    def cron_fix_set_date_invoice_sale_orders(self, cr=None, uid=False, context=None):                
-        sale_order_ids = self.env['sale.order'].search(
-            [
-                ('date_invoice', '=', False), 
-                ('invoice_status', '=', 'invoiced'),
-                ('state', 'in', ('sale', 'done')),
-                ('amount_untaxed', '>', 0)
-             ]
-        )
-        if len(sale_order_ids)>0:
-            for sale_order_id in sale_order_ids:
-                date_invoice = False
-                for invoice_id in sale_order_id.invoice_ids:
-                    if invoice_id.type=='out_invoice':
-                        if invoice_id.date_invoice!=False and date_invoice==False:
-                            date_invoice = invoice_id.date_invoice
-                #date_invoice                        
-                if date_invoice!=False:
-                    sale_order_id.date_invoice = date_invoice
-        
-    @api.multi    
-    def cron_done_orders_full_invoiced(self, cr=None, uid=False, context=None):
-        sale_order_ids = self.env['sale.order'].search([('state', '=', 'sale'),('invoice_status', '=', 'invoiced')])        
-        if sale_order_ids!=False:
-            for sale_order_id in sale_order_ids:
-                sale_order_id.state = 'done'                
+        self.env.cr.execute("UPDATE sale_order SET website_description = (SELECT website_description FROM sale_quote_template WHERE id = template_id)")                            
     
     @api.one    
     def action_account_invoice_not_create_partner_without_vat(self):
@@ -414,24 +361,24 @@ class SaleOrder(models.Model):
                         invoice_id = return_invoice_create[0]
                         account_invoice_id = self.env['account.invoice'].search([('id', '=', invoice_id)])[0]
                         #save_log
-                        arelux_automation_log_vals = {                    
+                        automation_log_vals = {                    
                             'model': 'account.invoice',
                             'res_id': account_invoice_id.id,
                             'category': 'account_invoice',
                             'action': 'create',                                                                                                                                                                                           
                         }
-                        arelux_automation_log_obj = self.env['arelux.automation.log'].sudo().create(arelux_automation_log_vals)
+                        automation_log_obj = self.env['automation.log'].sudo().create(automation_log_vals)
                         #operations
                         if account_invoice_id.amount_total>0:
                             account_invoice_id.action_invoice_open()                        
                             account_invoice_id.action_send_account_invoice_create_message_slack()#Fix Slack
                             #save_log
-                            arelux_automation_log_vals = {                    
+                            automation_log_vals = {                    
                                 'model': 'account.invoice',
                                 'res_id': account_invoice_id.id,
                                 'category': 'account_invoice',
                                 'action': 'valid',                                                                                                                                                                                           
                             }
-                            arelux_automation_log_obj = self.env['arelux.automation.log'].sudo().create(arelux_automation_log_vals)                                            
+                            automation_log_obj = self.env['automation.log'].sudo().create(automation_log_vals)                                            
                             #send mail
                             account_invoice_id.cron_account_invoice_auto_send_mail_item()
