@@ -226,9 +226,4 @@ class SaleOrder(models.Model):
                     raise Warning("No se puede confirmar la venta de contrareembolso con un total_contrareembolso menor de 10")
                                                                                                                          
         if allow_action_confirm==True:
-            return super(SaleOrder, self).action_confirm()            
-            
-    @api.multi    
-    def cron_fix_website_description_sale_quotes(self, cr=None, uid=False, context=None):                
-        self.env.cr.execute("UPDATE sale_order_line SET website_description = NULL WHERE id > 0")
-        self.env.cr.execute("UPDATE sale_order SET website_description = (SELECT website_description FROM sale_quote_template WHERE id = template_id)")        
+            return super(SaleOrder, self).action_confirm()        
