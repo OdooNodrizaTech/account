@@ -10,17 +10,6 @@
             <field name="model" eval="'sale.order'" />
             <field name="function" eval="'cron_fix_website_description_sale_quotes'" />
             <field name="args" eval="" />
-        </record>        
-        <record id="cron_operations_sale_order_autogenerate_invoices" model="ir.cron">
-            <field name="name">Auto generate Invoices</field>
-            <field name="active" eval="True" />
-            <field name="user_id" ref="base.user_root" />
-            <field name="interval_number">1</field>
-            <field name="interval_type">days</field>
-            <field name="numbercall">-1</field>
-            <field name="model" eval="'sale.order'" />
-            <field name="function" eval="'cron_operations_sale_order_autogenerate_invoices'" />
-            <field name="args" eval="" />
-        </record>                                
+        </record>                                                
     </data>
 </openerp>
