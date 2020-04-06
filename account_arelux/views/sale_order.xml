@@ -27,7 +27,7 @@
                 <label for="proforma" attrs="{'invisible': [('claim','=',True)]}"/>
                 <div attrs="{'invisible': [('claim','=',True)]}">
                     <field name="proforma"/>
-                </div>                
+                </div>                            
                 <field name="total_cashondelivery"/>                
             </xpath>
             <field name="order_line" position="after">
