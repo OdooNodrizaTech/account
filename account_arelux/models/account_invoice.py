@@ -58,7 +58,8 @@ class AccountInvoice(models.Model):
     def write(self, vals):
         # stage date_paid_status
         if vals.get('state')=='paid' and self.date_paid_status==False:
-            vals['date_paid_status'] = fields.datetime.now()                                                    
+            vals['date_paid_status'] = fields.datetime.now()
+        #write                                                                
         return_object = super(AccountInvoice, self).write(vals)
         
         self.check_message_follower_ids()
@@ -72,19 +73,7 @@ class AccountInvoice(models.Model):
                 if message_follower_id.partner_id.user_ids!=False:
                     for user_id in message_follower_id.partner_id.user_ids:
                         if user_id.id==self.user_id.id or user_id.id==1:
-                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))                
-    
-    @api.one
-    def action_invoice_open(self):
-        validate_invoice_ok = True
-        #operations
-        if self.amount_total!=0:
-            if self.type=="in_invoice" and self.reference==False:
-                validate_invoice_ok = False
-                raise Warning("Es necesario definir una referencia de proveedor para validar la factura de compra.\n")                            
-        #return               
-        if validate_invoice_ok==True:
-            return super(AccountInvoice, self).action_invoice_open()        
+                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))        
                     
     @api.one        
     def _financed_bbva(self):          

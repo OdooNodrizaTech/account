@@ -92,56 +92,35 @@ class SaleOrder(models.Model):
                     self.team_id = self.opportunity_id.team_id.id                                                              
     
     @api.model
-    def create(self, values):        
-        if values.get('opportunity_id')==False and values.get('create_uid')!=1:
-            raise Warning("Para crear un presupuesto es necesario definir un flujo")
-        else:            
-            if values.get('claim')==True and values.get('claim_id')==False:
-                raise Warning("Es necesario definir una reclamacion")
-            else:
-                if values.get('claim')==True and values.get('claim_id')!=False:
-                    values['name'] = self.env['ir.sequence'].next_by_code('sale.order.claim') or 'New Claim'
-                                
-                return_val = super(SaleOrder, self).create(values)            
-                
-                if return_val.user_id.id!=False and return_val.partner_id.user_id.id!=False and self.user_id.id!=return_val.partner_id.user_id.id:
-                    return_val.user_id = return_val.partner_id.user_id.id                        
-                
-                if return_val.user_id.id==6:
-                    return_val.user_id = 0
-                
-                return_val.fix_copy_custom_field_opportunity_id()#Fix copy fields opportunity
-                                
-                return return_val                                
+    def create(self, values):            
+        return_val = super(SaleOrder, self).create(values)            
+        
+        if return_val.user_id.id!=False and return_val.partner_id.user_id.id!=False and self.user_id.id!=return_val.partner_id.user_id.id:
+            return_val.user_id = return_val.partner_id.user_id.id                        
+        
+        if return_val.user_id.id==6:
+            return_val.user_id = 0
+        
+        return_val.fix_copy_custom_field_opportunity_id()#Fix copy fields opportunity
+                        
+        return return_val                                
     
     @api.multi
     def write(self, vals):
-        allow_write = True
         #date_order_management
         if vals.get('state')=='sent' and 'date_order_management' not in vals:
-            vals['date_order_management'] = fields.datetime.now()                        
-        #fix validate template_id
-        template_id_check = self.template_id.id
-        if 'template_id' in vals:
-            template_id_check = vals['template_id']
-            
-            sale_quote_template_obj = self.env['sale.quote.template'].search([('id', '=', template_id_check)])[0]
-            if sale_quote_template_obj.ar_qt_activity_type!=False:
-                if sale_quote_template_obj.ar_qt_activity_type!=self.ar_qt_activity_type:
-                    allow_write = False
-                    raise Warning("La plantilla de presupuesto no corresponde con el tipo de actividad")                    
-                
-        if allow_write==True:                        
-            return_object = super(SaleOrder, self).write(vals)
-        
-            if self.user_id.id!=False:        
-                for message_follower_id in self.message_follower_ids:
-                    if message_follower_id.partner_id.user_ids!=False:
-                        for user_id in message_follower_id.partner_id.user_ids:
-                            if user_id.id!=self.user_id.id:
-                                self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))                            
-                                                                
-            return return_object                    
+            vals['date_order_management'] = fields.datetime.now()                            
+                                        
+        return_object = super(SaleOrder, self).write(vals)
+    
+        if self.user_id.id!=False:        
+            for message_follower_id in self.message_follower_ids:
+                if message_follower_id.partner_id.user_ids!=False:
+                    for user_id in message_follower_id.partner_id.user_ids:
+                        if user_id.id!=self.user_id.id:
+                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))                            
+                                                            
+        return return_object                    
     
     @api.one        
     def _get_partner_id_state_id(self):
@@ -182,10 +161,7 @@ class SaleOrder(models.Model):
         allow_action_confirm = True
         
         if self.amount_total>0:    
-            if self.partner_invoice_id.vat==False:
-                allow_action_confirm = False
-                raise Warning("Es necesario definir CIF/NIF para la direccion de facturacion antes de validar el pedido de venta.\n")            
-            elif self.carrier_id.id>0 and self.partner_shipping_id.id>0:
+            if self.carrier_id.id>0 and self.partner_shipping_id.id>0:
                 if self.carrier_id.id>0 and self.partner_shipping_id.id>0 and self.partner_shipping_id.street==False:
                     allow_action_confirm = False
                     raise Warning("Es necesario definir una direccion para realizar el envio.\n")                
@@ -220,12 +196,6 @@ class SaleOrder(models.Model):
                 raise Warning("El modo de pago es incompatible con el plazo de pago.\n")                                                                   
         
         if allow_action_confirm==True:
-            if self.need_check_credit_limit==True:
-                future_max_credit_limit_allow = self.max_credit_limit_allow - self.amount_total
-                if future_max_credit_limit_allow<=0:                   
-                    allow_action_confirm = False
-                    raise Warning("No se puede confirmar la venta porque no hay credito disponible o el importe total de esta venta es superior al credito disponible ("+str(future_max_credit_limit_allow)+")")
-                
             if allow_action_confirm==True:
                 account_payment_mode_sepa_credit = int(self.env['ir.config_parameter'].sudo().get_param('account_payment_mode_sepa_credit'))
                 if self.payment_mode_id.id==account_payment_mode_sepa_credit:            
