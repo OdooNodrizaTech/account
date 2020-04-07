@@ -14,10 +14,7 @@ class SaleOrder(models.Model):
     )
     proforma = fields.Boolean( 
         string='Proforma'
-    )            
-    total_cashondelivery = fields.Float( 
-        string='Total contrareembolso'
-    )    
+    )        
     date_order_management = fields.Datetime(
         string='Fecha gestion', 
         readonly=True
@@ -216,14 +213,7 @@ class SaleOrder(models.Model):
                         account_banking_mandate_ids = self.env['account.banking.mandate'].search([('partner_bank_id', '=', res_partner_banks_ids_need_check)])
                         if len(account_banking_mandate_ids)==0:
                             allow_action_confirm = False
-                            raise Warning("No se puede confirmar la venta porque no hay un mandato bancario creado para la direccion de facturacion seleccionada")                
-        
-        if allow_action_confirm==True:
-            account_arelux_payment_mode_id_cashondelivery = int(self.env['ir.config_parameter'].sudo().get_param('account_arelux_payment_mode_id_cashondelivery'))            
-            if account_arelux_payment_mode_id_cashondelivery==self.payment_mode_id.id:
-                if self.total_cashondelivery<10:
-                    allow_action_confirm = False
-                    raise Warning("No se puede confirmar la venta de contrareembolso con un total_contrareembolso menor de 10")
+                            raise Warning("No se puede confirmar la venta porque no hay un mandato bancario creado para la direccion de facturacion seleccionada")
                                                                                                                          
         if allow_action_confirm==True:
             return super(SaleOrder, self).action_confirm()        
