@@ -138,6 +138,8 @@ class AccountInvoice(models.Model):
                     'amount_tax': self.amount_tax,
                     'amount_total': self.amount_total,
                     'residual': self.residual,
+                    'invoice_with_risk': self.invoice_with_risk,
+                    'partner_credit_limit': self.partner_id.credit_limit,
                     'url_pdf': 'https://docs.oniad.com/account-invoice/'+str(self.uuid)+'.pdf',
                     's3_pdf': str(s3_bucket_docs_oniad_com)+'/account-invoice/'+str(self.uuid)+'.pdf',
                     'invoice_line_ids': [],
