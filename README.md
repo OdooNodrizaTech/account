@@ -12,6 +12,7 @@ nombre | version
 [account_invoice_locked_by_dates](account_invoice_locked_by_dates/) | 10.0.1.0.0
 [account_invoice_mail_followers_extra](account_invoice_mail_followers_extra/) | 10.0.1.0.0
 [account_invoice_not_paid_auto_send_mail](account_invoice_not_paid_auto_send_mail/) | 10.0.1.0.0
+[account_invoice_valid_auto_paid](account_invoice_valid_auto_paid/) | 10.0.1.0.0
 [account_oniad](account_oniad/) | 10.0.1.0.0
 [custom_day_due](custom_day_due/) | 10.0.1.0.0
 [odoo_float_round](odoo_float_round/) | 10.0.1.0.0
