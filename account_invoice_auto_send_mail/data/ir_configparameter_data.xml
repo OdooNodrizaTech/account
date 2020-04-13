@@ -8,6 +8,10 @@
         <record id="account_invoice_auto_send_mail_author_id" model="ir.config_parameter">
             <field name="key">account_invoice_auto_send_mail_author_id</field>
             <field name="value">105843</field>
+        </record>
+        <record id="account_invoice_auto_send_mail_days" model="ir.config_parameter">
+            <field name="key">account_invoice_auto_send_mail_days</field>
+            <field name="value">3</field>
         </record>            
     </data>
 </openerp>
