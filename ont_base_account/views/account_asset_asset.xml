@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="account_doctorproperty_view_account_asset_asset_purchase_tree" model="ir.ui.view">
-        <field name="name">account_doctorproperty_view_account_asset_asset_purchase_tree</field>
+    <record id="ont_base_account_view_account_asset_asset_purchase_tree" model="ir.ui.view">
+        <field name="name">ont_base_account_view_account_asset_asset_purchase_tree</field>
         <field name="model">account.asset.asset</field>
         <field name="inherit_id" ref="account_asset.view_account_asset_asset_purchase_tree" />
         <field name="priority" eval="20"/>                

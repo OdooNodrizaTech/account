@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_account_invoice_doctorproperty_tree" model="ir.ui.view">
-        <field name="name">view_account_invoice_doctorproperty_tree</field>
+    <record id="ont_base_account_view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">ont_base_account_view_account_invoice_filter</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="before">	    	
+                <field name="amount_total" string="Total"/>
+            </field>                        
+        </field>
+    </record>
+    <record id="ont_base_account_invoice_form" model="ir.ui.view">
+        <field name="name">ont_base_account_invoice_form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="replace">
+                <field name="price_unit" widget="monetary" />
+            </xpath>            
+        </field>
+    </record>
+    <record id="ont_base_account_invoice_tree" model="ir.ui.view">
+        <field name="name">ont_base_account_invoice_tree</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_tree"/>
         <field name="arch" type="xml">
@@ -17,8 +37,8 @@
             </field>            
         </field>
     </record>
-    <record id="view_account_invoice_supplier_doctorproperty_tree" model="ir.ui.view">
-        <field name="name">view_account_invoice_supplier_doctorproperty_tree</field>
+    <record id="ont_base_account_invoice_supplier_tree" model="ir.ui.view">
+        <field name="name">ont_base_account_invoice_supplier_tree</field>
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_supplier_tree"/>
         <field name="arch" type="xml">
