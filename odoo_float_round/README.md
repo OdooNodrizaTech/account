@@ -7,4 +7,4 @@ UPDATE account_move_line SET credit = ROUND(credit::numeric,3);
 UPDATE account_move_line SET balance = ROUND(balance::numeric,3);
 ```
 
-El módulo contiene el siguiente cron: Fix Odoo Floar Round  que ejecuta los updates.
+El módulo contiene el siguiente cron: Fix Odoo Floar Round  que ejecuta los updates (1 vez al día).
