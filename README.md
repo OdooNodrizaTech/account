@@ -11,6 +11,8 @@ nombre | version
 [account_banking_mandate_auto_create](account_banking_mandate_auto_create/) | 10.0.1.0.0
 [account_invoice_auto_send_mail](account_invoice_auto_send_mail/) | 10.0.1.0.0
 [account_invoice_auto_send_mail_arelux](account_invoice_auto_send_mail_arelux/) | 10.0.1.0.0
+[account_invoice_commission](account_invoice_commission/) | 10.0.1.0.0
+[account_invoice_commission_arelux](account_invoice_commission_arelux/) | 10.0.1.0.0
 [account_invoice_line_price_unit_float](account_invoice_line_price_unit_float/) | 10.0.1.0.0
 [account_invoice_locked_by_dates](account_invoice_locked_by_dates/) | 10.0.1.0.0
 [account_invoice_mail_followers_extra](account_invoice_mail_followers_extra/) | 10.0.1.0.0
