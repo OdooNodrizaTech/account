@@ -12,10 +12,7 @@
             </field>
             <field name="payment_term_id" position="replace">
                 <field name="payment_term_id" domain="[('payment_order_ok','=',True)]" options="{'no_create': True}" />
-            </field>
-            <field name="payment_term_id" position="after">
-                <field name="payment_mode_id" domain="[('payment_order_ok','=',True),('payment_type', '=', 'inbound')]" string="Forma de pago" />
-            </field>
+            </field>            
             <field name="partner_shipping_id" position="replace">
                 <field name="partner_shipping_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'delivery', 'show_address': 1}" options="{'always_reload': True}" domain="['|', '&amp;', '&amp;', ('parent_id','=', partner_id),('type', '=', 'delivery'),('active', '=', True), ('id','=',partner_id)]" />                
             </field>            
