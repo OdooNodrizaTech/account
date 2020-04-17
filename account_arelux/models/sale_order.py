@@ -57,12 +57,9 @@ class SaleOrder(models.Model):
     
     @api.onchange('partner_id')
     def onchange_partner_id_override(self):
-        values = {
-            'payment_mode_id': self.partner_id.customer_payment_mode_id and self.partner_id.customer_payment_mode_id.id or False
-        }
-        self.update(values)
-    
         if self.partner_id.id>0:
+            self.payment_mode_id = self.partner_id.customer_payment_mode_id.id or False
+            #partner_shipping_id
             res_partner_ids = self.env['res.partner'].search(
                 [
                     ('parent_id', '=', self.partner_id.id),
@@ -70,12 +67,11 @@ class SaleOrder(models.Model):
                     ('type', '=', 'delivery')
                  ]
             )
-            if len(res_partner_ids)>1:        
-                values = {
-                    #'partner_shipping_id': self.partner_id.id,
-                    'partner_shipping_id': 0,
-                }
-                self.update(values)                                
+            if len(res_partner_ids)>1:
+                self.partner_shipping_id = 0
+            else:
+                res_partner_id = res_partner_ids[0]
+                self.partner_shipping_id = res_partner_id.id                                
     
     @api.model
     def fix_copy_custom_field_opportunity_id(self):
