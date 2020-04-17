@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Odoo Float Round',
+    'name': 'Account Float Round',
     'version': '10.0.1.0.0',    
     'author': 'Odoo Nodriza Tech (ONT)',
     'website': 'https://nodrizatech.com/',
