@@ -10,6 +10,6 @@ class AccountMoveLine(models.Model):
    
     @api.multi    
     def cron_odoo_float_round(self, cr=None, uid=False, context=None):     
-        self.env.cr.execute("UPDATE account_move_line SET debit = ROUND(debit::numeric,3)")
-        self.env.cr.execute("UPDATE account_move_line SET credit = ROUND(credit::numeric,3)")
-        self.env.cr.execute("UPDATE account_move_line SET balance = ROUND(balance::numeric,3)")
+        self.env.cr.execute("UPDATE account_move_line SET debit = ROUND(debit::numeric,2) WHERE id IN (SELECT id FROM account_move_line WHERE debit <> ROUND(debit::NUMERIC,2))")
+        self.env.cr.execute("UPDATE account_move_line SET credit = ROUND(credit::numeric,2) WHERE id IN (SELECT id FROM account_move_line WHERE credit <> ROUND(credit::NUMERIC,2))")
+        self.env.cr.execute("UPDATE account_move_line SET balance = ROUND(balance::numeric,2) WHERE id IN (SELECT id FROM account_move_line WHERE balance <> ROUND(balance::NUMERIC,2))")
