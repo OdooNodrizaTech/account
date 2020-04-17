@@ -9,6 +9,7 @@ nombre | version
 --- | ---
 [account_arelux](account_arelux/) | 10.0.1.0.0
 [account_banking_mandate_auto_create](account_banking_mandate_auto_create/) | 10.0.1.0.0
+[account_float_round](account_float_round/) | 10.0.1.0.0
 [account_invoice_auto_send_mail](account_invoice_auto_send_mail/) | 10.0.1.0.0
 [account_invoice_auto_send_mail_arelux](account_invoice_auto_send_mail_arelux/) | 10.0.1.0.0
 [account_invoice_commission](account_invoice_commission/) | 10.0.1.0.0
@@ -20,7 +21,6 @@ nombre | version
 [account_invoice_valid_auto_paid](account_invoice_valid_auto_paid/) | 10.0.1.0.0
 [account_oniad](account_oniad/) | 10.0.1.0.0
 [custom_day_due](custom_day_due/) | 10.0.1.0.0
-[odoo_float_round](odoo_float_round/) | 10.0.1.0.0
 [ont_account_balance_reporting](ont_account_balance_reporting/) | 10.0.1.0.0
 [ont_base_account](ont_base_account/) | 10.0.1.0.0
 [ont_margin_account](ont_margin_account/) | 10.0.1.0.0
