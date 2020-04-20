@@ -69,7 +69,7 @@ class SaleOrder(models.Model):
             )
             if len(res_partner_ids)>1:
                 self.partner_shipping_id = 0
-            else:
+            elif len(res_partner_ids)==1:
                 res_partner_id = res_partner_ids[0]
                 self.partner_shipping_id = res_partner_id.id                                
     
