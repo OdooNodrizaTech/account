@@ -10,6 +10,7 @@
                 <field name="payment_order_ok"/>               
             </field>
             <field name="line_ids" position="after">
+                <separator string="Modos de pago"/>
                 <field name="payment_mode_id"/>                
             </field>             
         </field>

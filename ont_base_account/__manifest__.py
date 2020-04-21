@@ -14,6 +14,7 @@
         'views/account_move.xml',
         'views/account_move_line.xml',
         'views/account_payment_mode.xml',
+        'views/account_payment_term.xml',
         'views/sale_order.xml',
     ],
     'installable': True,
