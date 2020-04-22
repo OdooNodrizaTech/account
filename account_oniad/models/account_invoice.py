@@ -128,6 +128,14 @@ class AccountInvoice(models.Model):
                     'number': str(self.number),
                     'currency': str(self.currency_id.name),
                     'oniad_address_id': int(self.oniad_address_id.id),
+                    'payment_mode_id': {
+                        'id': int(self.payment_mode_id.id),
+                        'name': str(self.payment_mode_id.name)
+                    },
+                    'payment_term_id': {
+                        'id': int(self.payment_term_id.id),
+                        'name': str(self.payment_term_id.name)
+                    },
                     'state': str(self.state),
                     'create_date': str(self.create_date),
                     'date_invoice': str(self.date_invoice),
@@ -138,8 +146,8 @@ class AccountInvoice(models.Model):
                     'amount_tax': self.amount_tax,
                     'amount_total': self.amount_total,
                     'residual': self.residual,
-                    'invoice_with_risk': self.invoice_with_risk,
                     'partner_credit_limit': self.partner_id.credit_limit,
+                    'partner_max_credit_limit_allow': self.partner_id.max_credit_limit_allow,
                     'url_pdf': 'https://docs.oniad.com/account-invoice/'+str(self.uuid)+'.pdf',
                     's3_pdf': str(s3_bucket_docs_oniad_com)+'/account-invoice/'+str(self.uuid)+'.pdf',
                     'invoice_line_ids': [],
@@ -199,7 +207,9 @@ class AccountInvoice(models.Model):
                     }                                
                 )
                 if 'MessageId' not in response:
-                    action_response = False        
+                    action_response = False
+                else:
+                    _logger.info(sns_name)                           
                 #return
                 return action_response
     
