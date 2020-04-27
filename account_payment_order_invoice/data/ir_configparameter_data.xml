@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data noupdate="1">
-        <record id="account_payment_order_invoice_product_id" model="ir.config_parameter">
-            <field name="key">account_payment_order_invoice_product_id</field>
-            <field name="value">237</field>
-        </record>            
-    </data>
-</openerp>
