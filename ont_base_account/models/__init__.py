@@ -1,4 +1,5 @@
 import account_asset_asset
+import account_bank_statement_line
 import account_fiscal_position
 import account_invoice
 import account_payment_mode
