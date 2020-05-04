@@ -206,6 +206,12 @@ class AccountInvoice(models.Model):
                         }
                     }                                
                 )
+                #logger
+                _logger.info({
+                    'enviroment': enviroment,
+                    'sns_name': sns_name
+                })
+                #check
                 if 'MessageId' not in response:
                     action_response = False
                 else:
