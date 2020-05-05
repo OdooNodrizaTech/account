@@ -16,3 +16,6 @@ nombre | version
 
 ### ont_account_balance_reporting 
 No necesario porque account_balance_reporting ya no se usa
+
+### account_float_round
+Innecesario porque formatea correctamente
