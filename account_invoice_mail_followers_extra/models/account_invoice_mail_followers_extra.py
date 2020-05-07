@@ -5,7 +5,8 @@ import logging
 _logger = logging.getLogger(__name__)
 
 class AccountInvoiceMailFollowersExtra(models.Model):
-    _name = 'account_invoice_mail_followers_extra'
+    _name = 'account.invoice.mail.followers.extra'
+    _description = 'Account Invoice Mail Followers Extra'
     
     partner_id = fields.Many2one(
         comodel_name='res.partner', 

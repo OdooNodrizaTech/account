@@ -9,7 +9,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_open(self):    
-        account_invoice_mail_followers_extra_ids = self.env['account_invoice_mail_followers_extra'].search([('partner_id', '=', int(self.partner_id.id))])    
+        account_invoice_mail_followers_extra_ids = self.env['account.invoice.mail.followers.extra'].search([('partner_id', '=', int(self.partner_id.id))])    
         for account_invoice_mail_followers_extra_id in account_invoice_mail_followers_extra_ids:
             for partner_id_extra in account_invoice_mail_followers_extra_id.partner_ids_extra:   
                 mail_followers_vals = {
