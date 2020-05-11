@@ -7,6 +7,7 @@ Addons
 ----------------
 nombre | version
 --- | ---
+[account_arelux](account_arelux/) | 12.0.1.0.0
 [account_banking_mandate_auto_create](account_banking_mandate_auto_create/) | 12.0.1.0.0
 [account_invoice_line_price_unit_float](account_invoice_line_price_unit_float/) | 12.0.1.0.0
 [account_invoice_locked_by_dates](account_invoice_locked_by_dates/) | 12.0.1.0.0
