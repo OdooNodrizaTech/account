@@ -16,6 +16,7 @@ nombre | version
 [account_invoice_line_price_unit_float](account_invoice_line_price_unit_float/) | 12.0.1.0.0
 [account_invoice_locked_by_dates](account_invoice_locked_by_dates/) | 12.0.1.0.0
 [account_invoice_mail_followers_extra](account_invoice_mail_followers_extra/) | 12.0.1.0.0
+[account_invoice_not_paid_auto_send_mail](account_invoice_not_paid_auto_send_mail/) | 12.0.1.0.0
 [account_invoice_valid_auto_paid](account_invoice_valid_auto_paid/) | 12.0.1.0.0
 [account_oniad](account_oniad/) | 12.0.1.0.0
 [account_payment_order_invoice](account_payment_order_invoice/) | 12.0.1.0.0
