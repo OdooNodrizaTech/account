@@ -35,7 +35,7 @@ class AccountInvoice(models.Model):
                             validate_invoice_ok = False        
                             raise Warning("La fecha contable especificada de la factura no puede ser inferior a la que se usa para bloquear facturas "+str(date_limit)+".\n")                
                     else:
-                        if str(self.date_invoice)<=date_limit:
+                        if self.date_invoice<=date_limit:
                             validate_invoice_ok = False        
                             raise Warning("La fecha de factura especificada no puede ser inferior a la que se usa para bloquear facturas "+str(date_limit)+".\n")                                                                              
                 
@@ -58,12 +58,12 @@ class AccountInvoice(models.Model):
                 _logger.info('Limitacion absurda, la fecha de bloqueo de las facturas es mayor que la fecha actual')
             else:
                 if self.type=='out_invoice' or self.type=='out_refund':
-                    if str(self.date_invoice)<=date_limit:
+                    if self.date_invoice<=date_limit:
                         cancel_invoice_ok = False        
                         raise Warning("No se puede cancelar la facturada al ser la fecha de la misma inferior a la que se usa para bloquear facturas "+str(date_limit)+".\n")
                 else:
                     if self.date!=False:
-                        if str(self.date)<=date_limit:
+                        if self.date<=date_limit:
                             cancel_invoice_ok = False        
                             raise Warning("No se puede cancelar la facturada al ser la fecha contable de la misma inferior a la que se usa para bloquear facturas "+str(date_limit)+".\n")
     
