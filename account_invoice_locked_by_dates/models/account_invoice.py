@@ -16,8 +16,11 @@ class AccountInvoice(models.Model):
         date_limit = str(self.env['ir.config_parameter'].sudo().get_param('account_invoice_locked_by_date_date_limit'))
         if date_limit!=False:
             current_date = datetime.today()
-            current_date_format = current_date.strftime("%Y-%m-%d")
-            
+            current_date_strftime = current_date.strftime("%Y-%m-%d")
+            #to_date
+            current_date_format = datetime.strptime(current_date_strftime, "%Y-%m-%d").date()
+            date_limit = datetime.strptime(date_limit, "%Y-%m-%d").date()
+            #validations
             if current_date_format<=date_limit:#absurd limitation
                 _logger.info('Limitacion absurda, la fecha de bloqueo de las facturas es mayor que la fecha actual')
             else:        
@@ -46,8 +49,11 @@ class AccountInvoice(models.Model):
         date_limit = str(self.env['ir.config_parameter'].sudo().get_param('account_invoice_locked_by_date_date_limit'))
         if date_limit!=False:
             current_date = datetime.today()
-            current_date_format = current_date.strftime("%Y-%m-%d")
-            
+            current_date_strftime = current_date.strftime("%Y-%m-%d")
+            #to_date
+            current_date_format = datetime.strptime(current_date_strftime, "%Y-%m-%d").date()
+            date_limit = datetime.strptime(date_limit, "%Y-%m-%d").date()
+            #validations
             if current_date_format<=date_limit:#absurd limitation
                 _logger.info('Limitacion absurda, la fecha de bloqueo de las facturas es mayor que la fecha actual')
             else:
