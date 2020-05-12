@@ -1,0 +1,10 @@
+Se implementa el addon account_invoice_auto_send_mail para sobrescribir la función y enviar otras plantillas diferentes según diferentes cosas (ar_qt_customer_type del addon arelux_partner_questionnaire)
+
+## Parámetros de configuración
+```
+account_invoice_auto_send_mail_customer_activity_type_arelux_template_id
+account_invoice_auto_send_mail_customer_activity_type_todocesped_template_id
+account_invoice_auto_send_mail_customer_activity_type_evert_template_id
+account_invoice_auto_send_mail_customer_activity_type_both_template_id
+account_invoice_auto_send_mail_customer_activity_type_none_template_id
+```
