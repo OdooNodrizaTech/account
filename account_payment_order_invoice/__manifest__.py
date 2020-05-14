@@ -10,7 +10,7 @@
     'data': [
         'data/ir_configparameter_data.xml',
         'views/account_payment_order_view.xml',
-        'views/res_bank_view.xml',                 
+        #'views/res_bank_view.xml',                 
     ],
     'installable': True,
     'auto_install': False,    
