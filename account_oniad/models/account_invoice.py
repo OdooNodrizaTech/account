@@ -90,9 +90,10 @@ class AccountInvoice(models.Model):
                     aws_secret_access_key= AWS_SECRET_ACCESS_KEY
                 )
                 #get_pdf
-                report_invoice_pdf_content = self.env['report'].get_pdf([self.id], 'account.report_invoice')
+                #pdf = request.env['report'].sudo().get_pdf([invoice_id], 'account.report_invoice') Old odoo10
+                report_invoice_pdf_content = self.env.ref('account.account_invoices_without_payment').sudo().render_qweb_pdf([self.id])[0]
                 #put_object        
-                response_put_object = s3.put_object(Body=report_invoice_pdf_content, Bucket=s3_bucket_docs_oniad_com, Key='account-invoice/'+str(self.uuid)+'.pdf')
+                response_put_object = s3.put_object(Body=report_invoice_pdf_content, Bucket=s3_bucket_docs_oniad_com, Key='account-invoice/'+str(self.uuid)+'.pdf')                
 
     @api.multi
     def action_send_sns_multi(self):
