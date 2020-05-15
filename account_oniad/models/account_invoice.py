@@ -258,4 +258,5 @@ class AccountInvoice(models.Model):
                     
     @api.one    
     def action_auto_create_message_slack(self):
+        return_object = super(AccountInvoice, self).action_auto_create_message_slack()
         return False                    
