@@ -21,14 +21,14 @@ class AccountInvoice(models.Model):
                 for line_id in inv.move_id.line_ids:
                     if line_id.debit>0:
                         
-                        date_due = datetime.datetime.strptime(line_id.date_maturity, "%Y-%m-%d")
+                        date_due = datetime.datetime.strptime(line_id.date_maturity.strftime("%Y-%m-%d"), "%Y-%m-%d")
                         day_date_due = int(date_due.strftime('%d'))
                                                                                   
                         while not (day_date_due in custom_days_due):                            
                             modified_date = date_due + datetime.timedelta(days=1)
                             line_id.date_maturity = datetime.datetime.strftime(modified_date, "%Y-%m-%d")                                                                                              
                         
-                            date_due = datetime.datetime.strptime(line_id.date_maturity, "%Y-%m-%d")
+                            date_due = datetime.datetime.strptime(line_id.date_maturity.strftime("%Y-%m-%d"), "%Y-%m-%d")
                             day_date_due = int(date_due.strftime('%d'))                        
     
     def generate_custom_days_due(self):
@@ -98,14 +98,14 @@ class AccountInvoice(models.Model):
             
             custom_days_due = self.generate_custom_days_due()
             if len(custom_days_due)>0:                            
-                date_due = datetime.datetime.strptime(self.date_due, "%Y-%m-%d")
+                date_due = datetime.datetime.strptime(self.date_due.strftime("%Y-%m-%d"), "%Y-%m-%d")
                 day_date_due = int(date_due.strftime('%d'))
                 
                 if not (day_date_due in custom_days_due):              
                     while not (day_date_due in custom_days_due):                            
-                        date_due = datetime.datetime.strptime(self.date_due, "%Y-%m-%d")
+                        date_due = datetime.datetime.strptime(self.date_due.strftime("%Y-%m-%d"), "%Y-%m-%d")
                         modified_date = date_due + datetime.timedelta(days=1)
                         self.date_due = datetime.datetime.strftime(modified_date, "%Y-%m-%d")                                                                                                                
                     
-                        date_due = datetime.datetime.strptime(self.date_due, "%Y-%m-%d")
+                        date_due = datetime.datetime.strptime(self.date_due.strftime("%Y-%m-%d"), "%Y-%m-%d")
                         day_date_due = int(date_due.strftime('%d'))
