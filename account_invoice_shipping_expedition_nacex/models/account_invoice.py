@@ -50,7 +50,6 @@ class AccountInvoice(models.Model):
                                                 num_factura = line_data[2]
                                                 departamento = line_data[3]
                                                 albaran = line_data[4]
-                                                ref_albaran = line_data[6]
                                                 cost = line_data[22].replace(',', '.')
                                                 #ooperations
                                                 if departamento!='ONLINE':
@@ -70,18 +69,25 @@ class AccountInvoice(models.Model):
                                                         #search_stock_picking
                                                         shipping_expedition_ids = self.env['shipping.expedition'].sudo().search(
                                                             [
-                                                                ('picking_id.name', '=', ref_albaran),
+                                                                ('delivery_code', '=', albaran),
                                                                 ('carrier_id.carrier_type', '=', 'nacex')
                                                             ]
                                                         )
                                                         if len(shipping_expedition_ids)==0:
-                                                            _logger.info('Raro, la referencia '+str(ref_albaran)+' no la tenemos y nos la facturan')
+                                                            _logger.info('Raro, la referencia '+str(albaran)+' no la tenemos y nos la facturan')
+                                                            supplier_line = {
+                                                                'shipping_expedition_id': 0,
+                                                                'name': albaran,
+                                                                'cost': cost,
+                                                            }
+                                                            # add
+                                                            supplier_lines.append(supplier_line)
                                                         else:
                                                             shipping_expedition_id = shipping_expedition_ids[0]
                                                             # supplier_line
                                                             supplier_line = {
                                                                 'shipping_expedition_id': shipping_expedition_id.id,
-                                                                'name': ref_albaran,
+                                                                'name': albaran,
                                                                 'cost': cost,
                                                             }
                                                             #add

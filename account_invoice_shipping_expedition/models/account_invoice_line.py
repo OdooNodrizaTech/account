@@ -21,5 +21,8 @@ class AccountInvoiceLine(models.Model):
             record.shipping_expedition_id.invoice_date = record.invoice_id.date_invoice
             record.shipping_expedition_id.currency_id = record.invoice_id.currency_id.id
             record.shipping_expedition_id.cost = record.price_unit
+            #state
+            if record.shipping_expedition_id.state!='delivered':
+                record.shipping_expedition_id.state = 'delivered'
         #return
         return record
