@@ -20,8 +20,8 @@ class AccountInvoice(models.Model):
 
     @api.one
     def write(self, vals):
-        if 'supplier_lines_datas' in vals:
-            if vals['supplier_lines_datas']!=False:
+        if 'shipping_expedition_datas' in vals:
+            if vals['shipping_expedition_datas']!=False:
                 if self.is_supplier_delivery_carrier == True:
                     delivery_carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
                     if delivery_carrier_id.carrier_type=='nacex':
@@ -29,7 +29,7 @@ class AccountInvoice(models.Model):
                             raise Warning("Es necesario que no haya lineas definidas previamente")
                         else:
                             supplier_lines = []
-                            file_encoded = base64.b64decode(vals['supplier_lines_datas'])
+                            file_encoded = base64.b64decode(vals['shipping_expedition_datas'])
                             file_encoded_split = file_encoded.split('\n')
                             if len(file_encoded_split)>1:
                                 line = 1
@@ -53,15 +53,7 @@ class AccountInvoice(models.Model):
                                                 cost = line_data[22].replace(',', '.')
                                                 #ooperations
                                                 if departamento!='ONLINE':
-                                                    _logger.info('NO es Online pero habra que facturarlo')
-                                                    # supplier_line
-                                                    supplier_line = {
-                                                        'shipping_expedition_id': 0,
-                                                        'name': albaran,
-                                                        'cost': cost,
-                                                    }
-                                                    # add
-                                                    supplier_lines.append(supplier_line)
+                                                    _logger.info('NO es Online (RARO)')
                                                 else:
                                                     if num_factura!=self.reference:
                                                         _logger.info('El n factura de la linea no coincide con el de la factura')
@@ -75,28 +67,17 @@ class AccountInvoice(models.Model):
                                                         )
                                                         if len(shipping_expedition_ids)==0:
                                                             _logger.info('Raro, la referencia '+str(albaran)+' no la tenemos y nos la facturan')
-                                                            supplier_line = {
-                                                                'shipping_expedition_id': 0,
-                                                                'name': albaran,
-                                                                'cost': cost,
-                                                            }
-                                                            # add
-                                                            supplier_lines.append(supplier_line)
                                                         else:
                                                             shipping_expedition_id = shipping_expedition_ids[0]
-                                                            # supplier_line
-                                                            supplier_line = {
-                                                                'shipping_expedition_id': shipping_expedition_id.id,
-                                                                'name': albaran,
-                                                                'cost': cost,
-                                                            }
-                                                            #add
-                                                            supplier_lines.append(supplier_line)
+                                                            _logger.info('Actualizamos respecto a la expedicion ' + str(shipping_expedition_id.id))
+                                                            #update
+                                                            shipping_expedition_id.account_invoice_id = self.id
+                                                            shipping_expedition_id.invoice_date = self.date_invoice
+                                                            shipping_expedition_id.currency_id = self.currency_id.id
+                                                            shipping_expedition_id.cost = cost
                                     #line
                                     line += 1
-                            #supplier_lines
-                            self.generate_invoice_line_ids_custom(supplier_lines)
             #remove
-            del vals['supplier_lines_datas']
+            del vals['shipping_expedition_datas']
         # write
         return super(AccountInvoice, self).write(vals)

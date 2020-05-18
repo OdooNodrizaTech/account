@@ -7,7 +7,6 @@
         <field name="arch" type="xml">
             <field name="carrier_type" position="after">
                 <field name="supplier_partner_id" options='{"no_create": True, "no_create_edit": True}' groups="base.group_no_one"/>
-                <field name="supplier_product_template_id" options='{"no_create": True, "no_create_edit": True}' groups="base.group_no_one"/>
             </field>
         </field>
     </record>

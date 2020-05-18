@@ -12,8 +12,3 @@ class DeliveryCarrier(models.Model):
         domain=[('supplier', '=', True)],
         string='Supplier Partner Id'
     )
-    supplier_product_template_id = fields.Many2one(
-        comodel_name='product.template',
-        domain=[('purchase_ok', '=', True)],
-        string='Supplier Product Template Id'
-    )

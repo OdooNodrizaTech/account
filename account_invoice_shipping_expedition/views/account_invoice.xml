@@ -7,10 +7,20 @@
         <field name="arch" type="xml">
             <field name="reference" position="after">
                 <field name="is_supplier_delivery_carrier" invisible="True"/>
-                <field name="supplier_lines_datas"  widget="binary"  filename="supplier_lines_datas" attrs="{'invisible':[('is_supplier_delivery_carrier', '==', False)]}" />
+                <field name="shipping_expedition_datas"  widget="binary"  filename="shipping_expedition_datas" attrs="{'invisible':[('is_supplier_delivery_carrier', '==', False)]}" />
             </field>
-            <xpath expr="//notebook/page/field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
-                <field name="shipping_expedition_id" readonly="1" groups="base.group_no_one"/>
+            <xpath expr="//page[1]" position="after">
+                <page id="shipping_expedition_ids" string="Expediciones">
+                    <field name="shipping_expedition_ids" >
+                        <tree string="Expediciones">
+                           <field name="picking_id" />
+                            <field name="delivery_code" />
+                            <field name="date" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="cost" />
+                        </tree>
+                    </field>
+                </page>
             </xpath>
         </field>
     </record>
