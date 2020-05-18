@@ -8,6 +8,39 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     @api.one 
+    def cron_account_invoice_auto_send_mail_item(self):
+        if self.type=='out_invoice' and self.date_invoice_send_mail==False and (self.state=='open' or self.state=='paid'):
+            current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
+            days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days            
+            account_invoice_auto_send_mail_days = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_days'))
+            #send_invoice
+            send_invoice = False
+            if self.state=='paid':
+                 send_invoice = True
+            else:
+                if days_difference>=account_invoice_auto_send_mail_days:
+                    send_invoice = True
+            #override
+            if send_invoice==False:                
+                for invoice_line_id in invoice_line_ids:
+                    for sale_line_id in invoice_line_id.sale_line_ids:
+                        external_sale_order_ids = self.env['external.sale.order'].search(
+                            [
+                                ('sale_order_id', '=', sale_line_id.id), 
+                                ('external_source_id.type', '=', 'shopify')
+                             ]
+                        )
+                        if len(external_sale_order_ids)>0:
+                            if days_difference>=0:
+                                send_invoice = True
+            #send_invoice
+            if send_invoice==True:                        
+                account_invoice_auto_send_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_template_id'))
+                account_invoice_auto_send_mail_author_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_author_id'))
+                #account_invoice_auto_send_mail_item_real
+                self.account_invoice_auto_send_mail_item_real(account_invoice_auto_send_mail_template_id, account_invoice_auto_send_mail_author_id)
+    
+    @api.one 
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
         #change mail_template_id
         if self.ar_qt_activity_type=='arelux':

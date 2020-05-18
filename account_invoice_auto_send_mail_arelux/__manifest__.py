@@ -6,7 +6,7 @@
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'account_invoice_auto_send_mail'],
+    'depends': ['base', 'account_invoice_auto_send_mail', 'external_odoo_base'],
     'data': [
         'data/ir_configparameter_data.xml',                 
     ],
