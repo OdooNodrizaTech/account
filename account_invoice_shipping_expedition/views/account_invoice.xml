@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_invoice_shipping_expedition_invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account_invoice_shipping_expedition_invoice_supplier_form.tree</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <field name="reference" position="after">
+                <field name="is_supplier_delivery_carrier" invisible="True"/>
+                <field name="supplier_lines_datas"  widget="binary"  filename="supplier_lines_datas" attrs="{'invisible':[('is_supplier_delivery_carrier', '==', False)]}" />
+            </field>
+            <xpath expr="//notebook/page/field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                <field name="shipping_expedition_id" readonly="1" groups="base.group_no_one"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
