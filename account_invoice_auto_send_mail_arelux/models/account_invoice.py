@@ -27,15 +27,11 @@ class AccountInvoice(models.Model):
             if send_invoice==False:                
                 for invoice_line_id in self.invoice_line_ids:
                     for sale_line_id in invoice_line_id.sale_line_ids:
-                        external_sale_order_ids = self.env['external.sale.order'].search(
-                            [
-                                ('sale_order_id', '=', sale_line_id.id), 
-                                ('external_source_id.type', '=', 'shopify')
-                             ]
-                        )
-                        if len(external_sale_order_ids)>0:
-                            if days_difference>=0:
-                                send_invoice = True
+                        if sale_line_id.order_id.external_sale_order_id.id>0:
+                            if sale_line_id.order_id.external_sale_order_id.external_source_id.id>0:
+                                if sale_line_id.order_id.external_sale_order_id.external_source_id.type=='shopify':
+                                    if days_difference >= 0:
+                                        send_invoice = True
             #send_invoice
             if send_invoice==True:                        
                 account_invoice_auto_send_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_template_id'))
