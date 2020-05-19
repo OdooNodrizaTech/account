@@ -28,6 +28,7 @@ class AccountInvoice(models.Model):
                             if sale_line_id.order_id.external_sale_order_id.external_source_id.id > 0:
                                 if sale_line_id.order_id.external_sale_order_id.external_source_id.type == 'shopify':
                                     if days_difference >= 0:
+                                        send_invoice = True
             #send_invoice
             if send_invoice==True:                        
                 account_invoice_auto_send_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_template_id'))
