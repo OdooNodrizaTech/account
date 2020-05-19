@@ -22,7 +22,7 @@ class AccountInvoice(models.Model):
                     send_invoice = True
             #override
             if send_invoice==False:                
-                for invoice_line_id in invoice_line_ids:
+                for invoice_line_id in self.invoice_line_ids:
                     for sale_line_id in invoice_line_id.sale_line_ids:
                         external_sale_order_ids = self.env['external.sale.order'].search(
                             [
