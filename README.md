@@ -21,6 +21,7 @@ nombre | version
 [account_invoice_shipping_expedition](account_invoice_shipping_expedition/) | 10.0.1.0.0
 [account_invoice_shipping_expedition_arelux](account_invoice_shipping_expedition_arelux/) | 10.0.1.0.0
 [account_invoice_shipping_expedition_nacex](account_invoice_shipping_expedition_nacex/) | 10.0.1.0.0
+[account_invoice_shipping_expedition_txt](account_invoice_shipping_expedition_txt/) | 10.0.1.0.0
 [account_invoice_valid_auto_paid](account_invoice_valid_auto_paid/) | 10.0.1.0.0
 [account_oniad](account_oniad/) | 10.0.1.0.0
 [custom_day_due](custom_day_due/) | 10.0.1.0.0
