@@ -10,7 +10,7 @@
                 <field name="shipping_expedition_datas"  widget="binary"  filename="shipping_expedition_datas" attrs="{'invisible':[('is_supplier_delivery_carrier', '==', False)]}" />
             </field>
             <xpath expr="//page[1]" position="after">
-                <page id="shipping_expedition_ids" string="Expediciones">
+                <page id="shipping_expedition_ids" string="Expediciones" attrs="{'invisible':[('is_supplier_delivery_carrier', '==', False)]}">
                     <field name="shipping_expedition_ids" >
                         <tree string="Expediciones">
                            <field name="picking_id" />

@@ -8,11 +8,6 @@ from odoo.exceptions import Warning
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    is_supplier_delivery_carrier = fields.Boolean(
-        compute='_get_is_supplier_delivery_carrier',
-        string='Is supplier delivery carrier'
-    )
-
     @api.one
     def shipping_expedition_datas_override(self, file_encoded):
         return_action = super(AccountInvoice, self).shipping_expedition_datas_override(file_encoded)
