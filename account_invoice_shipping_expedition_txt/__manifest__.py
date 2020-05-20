@@ -8,7 +8,7 @@
     'license': 'AGPL-3',
     'depends': ['base', 'account_invoice_shipping_expedition', 'shipping_expedition_txt'],
     'external_dependencies': {
-        'python' : ['pandas', 'xlrd'],
+        'python' : ['xlrd'],
     },
     'data': [],
     'installable': True,

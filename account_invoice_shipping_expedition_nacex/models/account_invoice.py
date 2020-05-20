@@ -49,7 +49,7 @@ class AccountInvoice(models.Model):
                                     _logger.info('NO es Online (RARO)')
                                 else:
                                     if num_factura != self.reference:
-                                        _logger.info('El n factura de la linea no coincide con el de la factura')
+                                        raise Warning('El n factura de la linea no coincide con el de la factura')
                                     else:
                                         lines[albaran] = {
                                             'delivery_code': albaran,
@@ -62,6 +62,6 @@ class AccountInvoice(models.Model):
                     # line
                     line += 1
             #shipping_expedition_datas_lines_process
-            super(AccountInvoice, self).shipping_expedition_datas_lines_process('nacex', lines)
+            super(AccountInvoice, self).shipping_expedition_datas_lines_process(lines)
         #return
         return return_action

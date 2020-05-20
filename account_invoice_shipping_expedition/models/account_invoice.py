@@ -19,24 +19,34 @@ class AccountInvoice(models.Model):
     shipping_expedition_ids = fields.One2many('shipping.expedition', 'account_invoice_id', string='Shipping Expedition Ids', readonly=True)
 
     @api.one
-    def shipping_expedition_datas_lines_process(self, carrier_type, lines):
+    def shipping_expedition_datas_lines_process(self, lines):
         auto_create_new_shipping_expedition = False
+        delivery_carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
         if len(lines)>0:
-            delivery_codes = []
-            origins = []
+            #filter_key
+            filter_key = False
+            #filter_values
+            filter_values = []
             for line_key in lines:
                 line = lines[line_key]
-                delivery_codes.append(str(line['delivery_code']))
+                #filter_key
+                if filter_key==False:
+                    if 'delivery_code' in line:
+                        filter_key = 'delivery_code'
+                    else:
+                        filter_key = 'code'
+                #append
+                filter_values.append(str(line[filter_key]))
             #search all
             shipping_expedition_ids = self.env['shipping.expedition'].sudo().search(
                 [
-                    ('delivery_code', 'in', delivery_codes),
-                    ('carrier_id.carrier_type', '=', carrier_type)
+                    (filter_key, 'in', filter_values),
+                    ('carrier_id.carrier_type', '=', delivery_carrier_id.carrier_type)
                 ]
             )
             if len(shipping_expedition_ids)>0:
                 for shipping_expedition_id in shipping_expedition_ids:
-                    line = lines[str(shipping_expedition_id.delivery_code)]
+                    line = lines[str(shipping_expedition_id[filter_key])]
                     #update
                     shipping_expedition_id.account_invoice_id = self.id
                     shipping_expedition_id.invoice_date = self.date_invoice
@@ -48,7 +58,7 @@ class AccountInvoice(models.Model):
                     if shipping_expedition_id.state!='delivered':
                         shipping_expedition_id.state = 'delivered'
                     #remove
-                    del lines[str(shipping_expedition_id.delivery_code)]
+                    del lines[str(shipping_expedition_id[filter_key])]
             #auto-create
             if auto_create_new_shipping_expedition==True and len(lines)>0:
                 _logger.info('Faltarian por crear ' + str(len(lines)) + ' expediciones que nos han facturado y no teniamos')
@@ -63,7 +73,7 @@ class AccountInvoice(models.Model):
                 stock_picking_ids = self.env['stock.picking'].sudo().search(
                     [
                         ('name', 'in', origins),
-                        ('carrier_id.carrier_type', '=', carrier_type)
+                        ('carrier_id.carrier_type', '=', delivery_carrier_id.carrier_type)
                     ]
                 )
                 _logger.info(len(stock_picking_ids))
@@ -73,8 +83,6 @@ class AccountInvoice(models.Model):
                         shipping_expedition_vals = {
                             'picking_id': stock_picking_id.id,
                             'partner_id': stock_picking_id.partner_id.id,
-                            'delivery_code': line['delivery_code'],
-                            'date': line['date'],
                             'origin': stock_picking_id.name,
                             'carrier_id': stock_picking_id.carrier_id.id,
                             'account_invoice_id': self.id,
@@ -85,6 +93,16 @@ class AccountInvoice(models.Model):
                             'cost': line['cost'],
                             'state': 'delivered',
                         }
+                        #delivery_code
+                        if 'delivery_code' in line:
+                            shipping_expedition_vals['delivery_code'] = line['delivery_code']
+                        #code
+                        if 'code' in line:
+                            shipping_expedition_vals['code'] = line['code']
+                        #date
+                        if 'date' in line:
+                            shipping_expedition_vals['date'] = line['date']
+                        #create
                         res_partner_obj = self.env['shipping.expedition'].create(shipping_expedition_vals)
 
     @api.one
