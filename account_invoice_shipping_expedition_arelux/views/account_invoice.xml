@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_invoice_shipping_expedition_arelux_account_invoice_shipping_expedition_invoice_supplier_form" model="ir.ui.view">
+        <field name="name">account_invoice_shipping_expedition_arelux_account_invoice_shipping_expedition_invoice_supplier_form.tree</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account_invoice_shipping_expedition.account_invoice_shipping_expedition_invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='shipping_expedition_ids']/tree/field[@name='date']" position="after">
+                <field name="ar_qt_activity_type"/>
+                <field name="ar_qt_customer_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

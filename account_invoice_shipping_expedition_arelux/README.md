@@ -1,0 +1,1 @@
+Implementa el addon account_invoice_shipping_expedition y añade los campos de tipo de actividad y tipo de cliente a las expediciones para que dependa de arelux_partner_questionnaire y lograr que todo lo anterior se pueda re-utilizar.
