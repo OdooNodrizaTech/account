@@ -41,6 +41,8 @@ class AccountInvoice(models.Model):
                                 fecha_albaran = fecha_albaran_split[2]+'-'+fecha_albaran_split[1]+'-'+fecha_albaran_split[0]
                                 #others
                                 referencia = line_data[6]
+                                number_of_packages = line_data[17]
+                                weight = line_data[18].replace(',', '.')
                                 cost = line_data[22].replace(',', '.')
                                 # ooperations
                                 if departamento != 'ONLINE':
@@ -53,6 +55,8 @@ class AccountInvoice(models.Model):
                                             'delivery_code': albaran,
                                             'origin': referencia,
                                             'date': fecha_albaran,
+                                            'number_of_packages': number_of_packages,
+                                            'weight': weight,
                                             'cost': cost
                                         }
                     # line

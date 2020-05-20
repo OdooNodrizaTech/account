@@ -41,6 +41,8 @@ class AccountInvoice(models.Model):
                     shipping_expedition_id.account_invoice_id = self.id
                     shipping_expedition_id.invoice_date = self.date_invoice
                     shipping_expedition_id.currency_id = self.currency_id.id
+                    shipping_expedition_id.number_of_packages = line['number_of_packages']
+                    shipping_expedition_id.weight = line['weight']
                     shipping_expedition_id.cost = line['cost']
                     #state
                     if shipping_expedition_id.state!='delivered':
@@ -78,6 +80,8 @@ class AccountInvoice(models.Model):
                             'account_invoice_id': self.id,
                             'invoice_date': self.date_invoice,
                             'currency_id': self.currency_id.id,
+                            'number_of_packages': line['number_of_packages'],
+                            'weight': line['weight'],
                             'cost': line['cost'],
                             'state': 'delivered',
                         }

@@ -21,3 +21,9 @@ class ShippingExpedition(models.Model):
     cost = fields.Monetary(
         string='Coste'
     )
+    weight = fields.Float(
+        string='Peso (Kg)'
+    )
+    number_of_packages = fields.Integer(
+        string='Paquetes'
+    )

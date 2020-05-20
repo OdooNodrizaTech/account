@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="account_invoice_shipping_expedition_shipping_expedition_form_view" model="ir.ui.view">
+        <field name="name">account_invoice_shipping_expedition_shipping_expedition_form_view.tree</field>
+        <field name="model">shipping.expedition</field>
+        <field name="inherit_id" ref="shipping_expedition.shipping_expedition_form_view"/>
+        <field name="arch" type="xml">
+            <field name="delegation_phone" position="after">
+                <field name="currency_id" invisible="1"/>
+                <field name="account_invoice_id" readonly="1" groups="base.group_no_one"/>
+                <field name="invoice_date" readonly="1" groups="base.group_no_one"/>
+                <field name="cost" readonly="1" groups="base.group_no_one"/>
+                <field name="weight" readonly="1" groups="base.group_no_one"/>
+                <field name="number_of_packages" readonly="1" groups="base.group_no_one"/>
+            </field>
+        </field>
+    </record>
+</odoo>
