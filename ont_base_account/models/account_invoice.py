@@ -16,7 +16,7 @@ class AccountInvoice(models.Model):
         compute='_partner_bank_name',
         string='Banco'
     )
-    
+
     @api.multi
     def action_invoice_open(self):
         allow_confirm = True
