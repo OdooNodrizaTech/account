@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="stock.view_template_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page//field[@name='tracking']" position="before">
-                <field name="allow_negative_stock" groups="base.group_no_one"/>
+                <field name="not_allow_account_invoice_commission" groups="base.group_no_one"/>
             </xpath>
         </field>
     </record>                 
