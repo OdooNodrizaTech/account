@@ -91,9 +91,12 @@ class AccountInvoice(models.Model):
                 )
                 #get_pdf
                 #pdf = request.env['report'].sudo().get_pdf([invoice_id], 'account.report_invoice') Old odoo10
-                report_invoice_pdf_content = self.env.ref('account.account_invoices_without_payment').sudo().render_qweb_pdf([self.id])[0]
-                #put_object        
-                response_put_object = s3.put_object(Body=report_invoice_pdf_content, Bucket=s3_bucket_docs_oniad_com, Key='account-invoice/'+str(self.uuid)+'.pdf')                
+                try:
+                    report_invoice_pdf_content = self.env.ref('account.account_invoices_without_payment').sudo().render_qweb_pdf([self.id])[0]
+                    # put_object
+                    response_put_object = s3.put_object(Body=report_invoice_pdf_content, Bucket=s3_bucket_docs_oniad_com, Key='account-invoice/' + str(self.uuid) + '.pdf')
+                except:
+                    _logger.info('Errir al generar el PDF de la factura '+str(self.id))
 
     @api.multi
     def action_send_sns_multi(self):
