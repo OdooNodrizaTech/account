@@ -7,16 +7,7 @@ from odoo.exceptions import Warning
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
-            
-    total_cashondelivery = fields.Float(
-        compute='_total_cashondelivery',
-        store=False, 
-        string='Total contrareembolso pedido'
-    )
-    date_paid_status = fields.Datetime(
-        string='Fecha fin pago', 
-        readonly=True
-    )
+
     hide_fiscal_position_description = fields.Boolean(
         string='Ocultar mensaje pos fiscal',
         default=False 
@@ -56,14 +47,11 @@ class AccountInvoice(models.Model):
     
     @api.one
     def write(self, vals):
-        # stage date_paid_status
-        if vals.get('state')=='paid' and self.date_paid_status==False:
-            vals['date_paid_status'] = fields.datetime.now()
         #write                                                                
         return_object = super(AccountInvoice, self).write(vals)
-        
+        #check_message_follower_ids
         self.check_message_follower_ids()
-        
+        #return
         return return_object
         
     @api.one
@@ -73,19 +61,7 @@ class AccountInvoice(models.Model):
                 if message_follower_id.partner_id.user_ids!=False:
                     for user_id in message_follower_id.partner_id.user_ids:
                         if user_id.id==self.user_id.id or user_id.id==1:
-                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))        
-                    
-    @api.one        
-    def _financed_bbva(self):          
-        if self.id!=False and self.origin!='':
-            sale_order_obj = self.env['sale.order'].search([('name', '=', self.origin)])
-            self.financed_bbva = sale_order_obj.financed_bbva                                                                                                                                                                                                                                          
-    
-    @api.one        
-    def _total_cashondelivery(self):                      
-        if self.id!=False and self.origin!='':
-            sale_order_obj = self.env['sale.order'].search([('name', '=', self.origin)])            
-            self.total_cashondelivery = sale_order_obj.total_cashondelivery
+                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))
             
     @api.one    
     def action_send_account_invoice_create_message_slack(self):
