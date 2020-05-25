@@ -9,6 +9,9 @@
             <xpath expr="//button[@name='action_invoice_draft']" position="after">
                 <button name="action_regenerate_commission_multi" type="object" string="Calcular comision" attrs="{'invisible':[('state', 'not in', ('open','paid'))]}"  groups="base.group_no_one" />
             </xpath>
+            <field name="date_invoice" position="after">
+                <field name="commission_date_paid" groups="base.group_no_one"/>
+            </field>
             <field name="residual" position="after">
                 <field name="commission" groups="base.group_no_one"/>
 	       </field>

@@ -8,7 +8,11 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
         
     commission = fields.Float( 
-        string='Commission'
+        string='Comission'
+    )
+    commission_date_paid = fields.Date(
+        string='Fecha pago comision',
+        readonly=True
     )
     
     @api.one

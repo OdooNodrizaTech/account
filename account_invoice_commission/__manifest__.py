@@ -10,7 +10,8 @@
     'data': [
         'views/account_invoice.xml',
         'views/product_template.xml',
-        'views/res_users.xml'        
+        'views/res_users.xml',
+        'wizard/account_invoice_line_commission.xml',
     ],
     'installable': True,
     'auto_install': False,    

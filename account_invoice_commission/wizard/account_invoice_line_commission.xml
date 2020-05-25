@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wizard_account_invoice_line_commission" model="ir.ui.view">
+        <field name="model">wizard.account.invoice.line.commission</field>
+        <field name="arch" type="xml">
+            <form string="Comisiones Lineas de factura">
+                <group>
+                    <field name="from_date"></field>
+                    <field name="to_date"></field>
+                    <field name="user_ids"></field>
+                    <field name="paid"></field>
+                    <field name="mark_as_paid"></field>
+                </group>
+                <footer>
+                    <button string="Generar archivo" name="generate_file" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancelar" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_account_invoice_line_commission" model="ir.actions.act_window">
+        <field name="name">Comisiones Lineas de factura</field>
+        <field name="res_model">wizard.account.invoice.line.commission</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_account_invoice_line_commission"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="menu_account_invoice_line_commission_general"
+        name="Comisiones"
+        parent="account.menu_finance_reports" />
+    <menuitem
+        action="action_account_invoice_line_commission"
+        id="menu_account_invoice_line_commission"
+        parent="menu_account_invoice_line_commission_general" />
+</odoo>
