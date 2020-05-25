@@ -16,10 +16,6 @@ class AccountInvoice(models.Model):
         compute='_partner_bank_name',
         string='Banco'
     )
-    date_paid_status = fields.Datetime(
-        string='Fecha fin pago',
-        readonly=True
-    )
 
     @api.multi
     def action_invoice_open(self):
@@ -35,14 +31,6 @@ class AccountInvoice(models.Model):
         #allow_confirm
         if allow_confirm==True:
             return super(AccountInvoice, self).action_invoice_open()
-
-    @api.one
-    def write(self, vals):
-        # stage date_paid_status
-        if vals.get('state') == 'paid' and self.date_paid_status == False:
-            vals['date_paid_status'] = fields.datetime.now()
-        #return
-        return super(AccountInvoice, self).write(vals)
     
     @api.multi        
     def _partner_bank_name(self):
