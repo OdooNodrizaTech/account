@@ -6,9 +6,6 @@
         <field name="inherit_id" ref="account.invoice_form" />
         <field name="priority" eval="20"/>                
         <field name="arch" type="xml">
-            <field name="team_id" position="after">
-                <field name="total_cashondelivery" readonly="1"/>
-            </field>
             <xpath expr="//page[@name='other_info']//field[@name='name']" position="after">
                 <field name="hide_fiscal_position_description" />
             </xpath>                                                
