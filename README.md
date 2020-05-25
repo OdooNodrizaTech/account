@@ -13,6 +13,7 @@ nombre | version
 [account_invoice_auto_send_mail_arelux](account_invoice_auto_send_mail_arelux/) | 12.0.1.0.0
 [account_invoice_commission](account_invoice_commission/) | 12.0.1.0.0
 [account_invoice_commission_arelux](account_invoice_commission_arelux/) | 12.0.1.0.0
+[account_invoice_date_paid_status](account_invoice_date_paid_status/) | 12.0.1.0.0
 [account_invoice_line_price_unit_float](account_invoice_line_price_unit_float/) | 12.0.1.0.0
 [account_invoice_locked_by_dates](account_invoice_locked_by_dates/) | 12.0.1.0.0
 [account_invoice_mail_followers_extra](account_invoice_mail_followers_extra/) | 12.0.1.0.0
