@@ -14,6 +14,7 @@ class AccountInvoice(models.Model):
     
     @api.one 
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
+        _logger.info('Operaciones account_invoice_auto_send_mail_item_real factura ' + str(self.id))
         mail_template_id = self.env['mail.template'].browse(mail_template_id)                
                     
         mail_compose_message_vals = {                    
@@ -42,7 +43,7 @@ class AccountInvoice(models.Model):
     
     @api.one 
     def cron_account_invoice_auto_send_mail_item(self):
-        if self.type=='out_invoice' and self.date_invoice_send_mail==False and (self.state=='open' or self.state=='paid'):
+        if self.type=='out_invoice' and self.date_invoice_send_mail==False and self.state in ['open', 'paid']:
             current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
             days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days            
             account_invoice_auto_send_mail_days = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_days'))
@@ -65,10 +66,17 @@ class AccountInvoice(models.Model):
         account_invoice_ids = self.env['account.invoice'].search(
             [
                 ('state', 'in', ('open', 'paid')), 
-                ('type', 'in', ('out_invoice', 'out_refund')),
+                ('type', '=', 'out_invoice'),
                 ('date_invoice_send_mail', '=', False)
-             ]
+             ], order="date_invoice asc", limit=200
         )        
-        if account_invoice_ids!=False:            
+        if account_invoice_ids!=False:
+            count = 0
             for account_invoice_id in account_invoice_ids:
-                account_invoice_id.cron_account_invoice_auto_send_mail_item()                                                                                                                                                                                         
+                count += 1
+                # cron_account_invoice_auto_send_mail_item
+                account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                # logger_percent
+                percent = (float(count) / float(len(account_invoice_ids))) * 100
+                percent = "{0:.2f}".format(percent)
+                _logger.info(str(percent) + '% (' + str(count) + '/' + str(len(account_invoice_ids)) + ')')

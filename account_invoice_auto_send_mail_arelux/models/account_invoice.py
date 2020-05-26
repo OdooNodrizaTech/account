@@ -9,7 +9,8 @@ class AccountInvoice(models.Model):
 
     @api.one 
     def cron_account_invoice_auto_send_mail_item(self):
-        if self.type=='out_invoice' and self.date_invoice_send_mail==False and (self.state=='open' or self.state=='paid'):
+        _logger.info('Operaciones cron_account_invoice_auto_send_mail_item factura ' + str(self.id))
+        if self.type == 'out_invoice' and self.date_invoice_send_mail == False and self.state in ['open', 'paid']:
             current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
             days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days            
             account_invoice_auto_send_mail_days = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_days'))
@@ -30,6 +31,7 @@ class AccountInvoice(models.Model):
                                     if days_difference >= 0:
                                         send_invoice = True
             #send_invoice
+            _logger.info(send_invoice)
             if send_invoice==True:                        
                 account_invoice_auto_send_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_template_id'))
                 account_invoice_auto_send_mail_author_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_author_id'))
