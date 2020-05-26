@@ -73,6 +73,13 @@ class AccountInvoice(models.Model):
                 ('date_invoice_send_mail', '=', False)
              ], order="date_invoice asc", limit=200
         )        
-        if account_invoice_ids!=False:            
+        if account_invoice_ids!=False:
+            count = 0
             for account_invoice_id in account_invoice_ids:
-                account_invoice_id.cron_account_invoice_auto_send_mail_item()                                                                                                                                                                                         
+                count += 1
+                #cron_account_invoice_auto_send_mail_item
+                account_invoice_id.cron_account_invoice_auto_send_mail_item()
+                # logger_percent
+                percent = (float(count) / float(len(account_invoice_ids))) * 100
+                percent = "{0:.2f}".format(percent)
+                _logger.info(str(percent) + '% (' + str(count) + '/' + str(len(account_invoice_ids)) + ')')
