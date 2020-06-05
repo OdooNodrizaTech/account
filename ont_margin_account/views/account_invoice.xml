@@ -7,7 +7,7 @@
         <field name="priority" eval="20"/>                
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_invoice_draft']" position="after">
-                <button name="action_regenerate_margin_multi" type="object" string="Calcular margen" attrs="{'invisible':[('state', 'not in', ('open','paid'))]}"  groups="base.group_no_one" />
+                <button name="action_regenerate_margin_multi" type="object" string="Calcular margen" attrs="{'invisible':[('state', 'not in', ('open','paid'))]}"  groups="base.group_system" />
             </xpath>                                                
         </field>
     </record>        

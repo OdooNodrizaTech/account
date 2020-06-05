@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="mail.view_users_form_mail"/>
         <field name="arch" type="xml">
             <field name="lang" position="after">	    	
-                <field name="invoice_commission_percent" groups="base.group_no_one"/>                
+                <field name="invoice_commission_percent" groups="base.group_system"/>
 	       </field>                       
         </field>
     </record>    
