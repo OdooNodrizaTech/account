@@ -7,14 +7,14 @@
         <field name="priority" eval="20"/>                
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_invoice_draft']" position="after">
-                <button name="action_regenerate_commission_multi" type="object" string="Calcular comision" attrs="{'invisible':[('state', 'not in', ('open','paid'))]}"  groups="base.group_no_one" />
+                <button name="action_regenerate_commission_multi" type="object" string="Calcular comision" attrs="{'invisible':[('state', 'not in', ('open','paid'))]}"  groups="base.group_system" />
             </xpath>
             <field name="residual" position="after">
-                <field name="commission" groups="base.group_no_one"/>
+                <field name="commission" groups="base.group_system"/>
 	       </field>
             <xpath expr="//notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
-                <field name="commission" readonly="1" groups="base.group_no_one"/>
-                <field name="commission_percent" readonly="1" groups="base.group_no_one"/>
+                <field name="commission" readonly="1" groups="base.group_system"/>
+                <field name="commission_percent" readonly="1" groups="base.group_system"/>
             </xpath>
         </field>
     </record>        
