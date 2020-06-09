@@ -111,7 +111,7 @@ class SaleOrder(models.Model):
                 if message_follower_id.partner_id.user_ids!=False:
                     for user_id in message_follower_id.partner_id.user_ids:
                         if user_id.id!=self.user_id.id:
-                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))                            
+                            message_follower_id.sudo().unlink()
                                                             
         return return_object                    
     
