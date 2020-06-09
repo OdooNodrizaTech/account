@@ -61,7 +61,7 @@ class AccountInvoice(models.Model):
                 if message_follower_id.partner_id.user_ids!=False:
                     for user_id in message_follower_id.partner_id.user_ids:
                         if user_id.id==self.user_id.id or user_id.id==1:
-                            self.env.cr.execute("DELETE FROM  mail_followers WHERE id = "+str(message_follower_id.id))
+                            message_follower_id.sudo().unlink()
             
     @api.one    
     def action_send_account_invoice_create_message_slack(self):
