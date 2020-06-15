@@ -14,7 +14,7 @@ class AccountInvoice(models.Model):
         string='Fecha pago comision',
         readonly=True
     )
-    
+
     @api.one
     def action_invoice_open(self):
         return_action = super(AccountInvoice, self).action_invoice_open()
@@ -22,7 +22,7 @@ class AccountInvoice(models.Model):
         self.action_regenerate_commission_percent_lines()
         #return
         return return_action
-    
+
     @api.one
     def write(self, vals):
         need_regenerate_commission = False

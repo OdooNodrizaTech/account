@@ -8,7 +8,7 @@ from datetime import datetime
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
-    
+
     @api.one
     def action_invoice_open(self):
         validate_invoice_ok = True                
@@ -41,7 +41,7 @@ class AccountInvoice(models.Model):
                 
         if validate_invoice_ok==True:
             return super(AccountInvoice, self).action_invoice_open()
-            
+
     @api.one
     def action_invoice_cancel(self):
         cancel_invoice_ok = True                

@@ -6,7 +6,7 @@ _logger = logging.getLogger(__name__)
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'                     
-    
+
     @api.multi
     def action_invoice_open(self):
         #action
@@ -46,4 +46,4 @@ class AccountInvoice(models.Model):
                                             if move_line_id.credit>0:
                                                 obj.assign_outstanding_credit(move_line_id.id)                                    
         #return
-        return return_action        
+        return return_action
