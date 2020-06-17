@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <field name="number" position="after">
                 <field name="number" filter_domain="[('amount_untaxed','=',self)]" string="Base imponible"/>
-                <field name="number" filter_domain="[('total','=',self)]" string="Total"/>
+                <field name="number" filter_domain="[('amount_total','=',self)]" string="Total"/>
                 <field name="number" filter_domain="[('residual','=',self)]" string="Importe pendiente"/>
             </field>
         </field>
