@@ -32,4 +32,10 @@ class AccountAsset(models.Model):
                         if item.state!='close':
                             depreciation_line_id.post_lines_and_close_asset()                
             
-        return super(AccountAssetAsset, self).set_to_close()                    
+        return super(AccountAssetAsset, self).set_to_close()
+
+    @api.model
+    def _cron_generate_entries(self):
+        _logger.info('_cron_generate_entries')
+        assets = self.env['account.asset'].search([('state', '=', 'open')])
+        created_move_ids, error_log = assets._compute_entries(fields.Date.today(), check_triggers=True)
