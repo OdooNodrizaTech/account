@@ -26,9 +26,6 @@
                     <field name="proforma"/>
                 </div>
             </xpath>
-            <field name="order_line" position="after">
-                <button name="action_update_lines_prices_pricelist" type="object" string="Actualizar precios tarifa" class="oe_highlight" attrs="{'invisible': [('state','not in', ['draft', 'send'])]}" help="Se actualizaran los precios unitarios de todas las lineas segun la cantidad de cada linea y el precio correspondiente respecto a la tarifa definida en el presupuesto" />
-            </field>
             <field name="fiscal_position_id" position="after">
                 <label for="disable_autogenerate_create_invoice" string="Desactivar auto facturar" />
                 <div>

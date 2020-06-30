@@ -48,13 +48,6 @@ class SaleOrder(models.Model):
         string='Provincia'
     )
     
-    @api.one        
-    def action_update_lines_prices_pricelist(self):
-        if self.state in ['draft', 'sent']:
-            if self.pricelist_id.id>0 and self.order_line!=False:
-                for order_line in self.order_line: 
-                    order_line.product_uom_change()
-    
     @api.onchange('partner_id')
     def onchange_partner_id_override(self):
         if self.partner_id.id>0:
