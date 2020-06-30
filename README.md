@@ -14,10 +14,12 @@ nombre | version
 [account_invoice_commission](account_invoice_commission/) | 12.0.1.0.0
 [account_invoice_commission_arelux](account_invoice_commission_arelux/) | 12.0.1.0.0
 [account_invoice_date_paid_status](account_invoice_date_paid_status/) | 12.0.1.0.0
+[account_invoice_in_open_reference_required](account_invoice_in_open_reference_required/) | 12.0.1.0.0
 [account_invoice_line_price_unit_float](account_invoice_line_price_unit_float/) | 12.0.1.0.0
 [account_invoice_locked_by_dates](account_invoice_locked_by_dates/) | 12.0.1.0.0
 [account_invoice_mail_followers_extra](account_invoice_mail_followers_extra/) | 12.0.1.0.0
 [account_invoice_not_paid_auto_send_mail](account_invoice_not_paid_auto_send_mail/) | 12.0.1.0.0
+[account_invoice_open_partner_vat_required](account_invoice_open_partner_vat_required/) | 12.0.1.0.0
 [account_invoice_shipping_expedition](account_invoice_shipping_expedition/) | 12.0.1.0.0
 [account_invoice_shipping_expedition_arelux](account_invoice_shipping_expedition_arelux/) | 12.0.1.0.0
 [account_invoice_shipping_expedition_cbl](account_invoice_shipping_expedition_cbl/) | 12.0.1.0.0
