@@ -8,7 +8,6 @@
     'license': 'AGPL-3',
     'depends': ['base', 'sale', 'account', 'mail', 'survey', 'crm_claim'],
     'data': [
-        'data/ir_configparameter_data.xml',
         'views/account_invoice.xml',        
         'views/resources.xml',
     ],
