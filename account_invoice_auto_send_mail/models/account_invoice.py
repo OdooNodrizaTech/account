@@ -43,7 +43,7 @@ class AccountInvoice(models.Model):
     
     @api.one 
     def cron_account_invoice_auto_send_mail_item(self):
-        if self.type=='out_invoice' and self.date_invoice_send_mail==False and self.state in ['open', 'paid']:
+        if self.type in ['out_invoice', 'out_refund'] and self.date_invoice_send_mail==False and self.state in ['open', 'paid']:
             current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
             days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days            
             account_invoice_auto_send_mail_days = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_days'))
@@ -66,7 +66,7 @@ class AccountInvoice(models.Model):
         account_invoice_ids = self.env['account.invoice'].search(
             [
                 ('state', 'in', ('open', 'paid')), 
-                ('type', '=', 'out_invoice'),
+                ('type', 'in', ('out_invoice', 'out_refund')),
                 ('date_invoice_send_mail', '=', False)
              ], order="date_invoice asc", limit=200
         )        
