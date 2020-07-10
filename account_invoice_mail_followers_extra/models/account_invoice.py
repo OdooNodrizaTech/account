@@ -25,7 +25,8 @@ class AccountInvoice(models.Model):
                     mail_followers_vals = {
                         'partner_id': partner_id_extra.id,
                         'res_model': 'account.invoice',
-                        'res_id': self.id
+                        'res_id': self.id,
+                        'subtype_ids': [(4, 1)]
                     }
                     mail_followers_obj = self.env['mail.followers'].sudo().create(mail_followers_vals)
         #return

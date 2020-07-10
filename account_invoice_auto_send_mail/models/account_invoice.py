@@ -18,11 +18,11 @@ class AccountInvoice(models.Model):
     @api.one 
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
         _logger.info('Operaciones account_invoice_auto_send_mail_item_real factura ' + str(self.id))
-        mail_template_id = self.env['mail.template'].browse(mail_template_id)                
+        mail_template_id = self.env['mail.template'].browse(mail_template_id)
                     
-        mail_compose_message_vals = {                    
+        mail_compose_message_vals = {
             'author_id': author_id,
-            'record_name': self.number,                                                                                                                                                                                           
+            'record_name': self.number
         }
         mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(mail_compose_message_vals)
         return_onchange_template_id = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
@@ -39,9 +39,9 @@ class AccountInvoice(models.Model):
             'attachment_ids': return_onchange_template_id['value']['attachment_ids'],                    
             'record_name': self.number,
             'no_auto_thread': False,                     
-        })                                                   
+        })
         mail_compose_message_obj.send_mail_action()        
-        #other                                                
+        #other
         self.date_invoice_send_mail = datetime.today()        
     
     @api.one 
