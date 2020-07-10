@@ -16,7 +16,7 @@ class AccountInvoice(models.Model):
     @api.one 
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
         _logger.info('Operaciones account_invoice_auto_send_mail_item_real factura ' + str(self.id))
-        mail_template_id = self.env['mail.template'].browse(mail_template_id)                
+        mail_template_id = self.env['mail.template'].browse(mail_template_id)
                     
         mail_compose_message_vals = {                    
             'author_id': author_id,
@@ -39,7 +39,7 @@ class AccountInvoice(models.Model):
             'no_auto_thread': False,                     
         })                                                   
         mail_compose_message_obj.send_mail_action()        
-        #other                                                
+        #other
         self.date_invoice_send_mail = datetime.today()        
     
     @api.one 
