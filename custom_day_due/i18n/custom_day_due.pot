@@ -1,0 +1,323 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* custom_day_due
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20200601\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-13 08:07+0000\n"
+"PO-Revision-Date: 2020-07-13 08:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "10"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "11"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "12"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "13"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "14"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "15"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "16"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "17"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "18"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "19"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "20"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "21"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "22"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "23"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "24"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "25"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "26"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "27"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "28"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "29"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "30"
+msgstr ""
+
+#. module: custom_day_due
+#: selection:res.partner,custom_day_due_1:0
+#: selection:res.partner,custom_day_due_1_purchase:0
+#: selection:res.partner,custom_day_due_2:0
+#: selection:res.partner,custom_day_due_2_purchase:0
+#: selection:res.partner,custom_day_due_3:0
+#: selection:res.partner,custom_day_due_3_purchase:0
+#: selection:res.partner,custom_day_due_4:0
+#: selection:res.partner,custom_day_due_4_purchase:0
+msgid "31"
+msgstr ""
+
+#. module: custom_day_due
+#: model:ir.model,name:custom_day_due.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: custom_day_due
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_1
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_1_purchase
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_1
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_1_purchase
+msgid "Custom day due 1"
+msgstr ""
+
+#. module: custom_day_due
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_2
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_2_purchase
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_2
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_2_purchase
+msgid "Custom day due 2"
+msgstr ""
+
+#. module: custom_day_due
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_3
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_3_purchase
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_3
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_3_purchase
+msgid "Custom day due 3"
+msgstr ""
+
+#. module: custom_day_due
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_4
+#: model:ir.model.fields,field_description:custom_day_due.field_res_partner__custom_day_due_4_purchase
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_4
+#: model:ir.model.fields,field_description:custom_day_due.field_res_users__custom_day_due_4_purchase
+msgid "Custom day due 4"
+msgstr ""
+
+#. module: custom_day_due
+#: model:ir.model,name:custom_day_due.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
