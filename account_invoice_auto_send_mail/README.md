@@ -1,12 +1,5 @@
 El módulo contiene el desarrollo para el envío automático de facturas por email
-
-
-## Parámetros de configuración
-```
-account_invoice_auto_send_mail_template_id
-account_invoice_auto_send_mail_author_id
-account_invoice_auto_send_mail_days
-``` 
+Los campos se añaden en los diarios de facturas de ventas.
 
 ## Cron:
 
