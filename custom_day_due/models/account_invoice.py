@@ -1,11 +1,8 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from openerp import api, models, fields
 
 import datetime
+from odoo import api, models, fields
 
-import logging
-_logger = logging.getLogger(__name__)
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
@@ -87,7 +84,7 @@ class AccountInvoice(models.Model):
                     if(custom_day_due_4>0):         
                         custom_days_due.append(custom_day_due_4)
                     
-        return custom_days_due;                                        
+        return custom_days_due
     
     @api.onchange('payment_term_id', 'date_invoice')
     def _onchange_payment_term_date_invoice(self):    

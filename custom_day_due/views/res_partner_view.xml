@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="custom_day_due_custom_day_due_by_partners" model="ir.ui.view">
-        <field name="name">custom_day_due_custom_day_due_by_partners</field>
+
+    <record id="res_partner_custom_day_due_form" model="ir.ui.view">
+        <field name="name">res.partner.custom.day.due.form</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="priority" eval="20"/>
@@ -20,4 +21,5 @@
             </xpath>
         </field>
     </record>
+
 </odoo>

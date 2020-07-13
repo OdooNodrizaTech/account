@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 from odoo import api, models, fields
+
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -39,7 +40,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 1', 
+        string='Custom day due 1',
     )
     custom_day_due_2 = fields.Selection(
         [
@@ -75,7 +76,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 2', 
+        string='Custom day due 2',
     )
     custom_day_due_3 = fields.Selection(
         [
@@ -111,7 +112,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 3', 
+        string='Custom day due 3',
     )
     custom_day_due_4 = fields.Selection(
         [
@@ -147,7 +148,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 4', 
+        string='Custom day due 4',
     )
     
     custom_day_due_1_purchase = fields.Selection(
@@ -184,7 +185,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 1', 
+        string='Custom day due 1',
     )
     custom_day_due_2_purchase = fields.Selection(
         [
@@ -220,7 +221,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 2', 
+        string='Custom day due 2',
     )
     custom_day_due_3_purchase = fields.Selection(
         [
@@ -256,7 +257,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 3', 
+        string='Custom day due 3',
     )
     custom_day_due_4_purchase = fields.Selection(
         [
@@ -292,5 +293,5 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),                    
         ],
-        string='Dia de pago 4', 
+        string='Custom day due 4',
     )                                           
