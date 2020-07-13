@@ -1,33 +1,36 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
-_logger = logging.getLogger(__name__)
 
 from odoo import api, fields, models
 from datetime import datetime
+_logger = logging.getLogger(__name__)
+
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     date_invoice_send_mail = fields.Datetime(
-        string='Fecha envio email' 
+        string='Date invoice send mail'
     )
     
     @api.one 
-    def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
+    def account_invoice_auto_send_mail_item_real(self):
         _logger.info('Operaciones account_invoice_auto_send_mail_item_real factura ' + str(self.id))
-        mail_template_id = self.env['mail.template'].browse(mail_template_id)
                     
-        mail_compose_message_vals = {                    
-            'author_id': author_id,
+        mail_compose_message_vals = {
+            'author_id': self.user_id.partner_id.id,
             'record_name': self.number,                                                                                                                                                                                           
         }
+        #Author_id (journal_id)
+        if self.journal_id.invoice_mail_template_id_author_id.id>0:
+            mail_compose_message_vals['author_id'] = self.journal_id.invoice_mail_template_id_author_id.id
+
         mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(mail_compose_message_vals)
-        return_onchange_template_id = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
+        return_onchange_template_id = mail_compose_message_obj.onchange_template_id(self.journal_id.invoice_mail_template_id.id, 'comment', 'account.invoice', self.id)
                         
         mail_compose_message_obj.update({
-            'author_id': author_id,
-            'template_id': mail_template_id.id,                    
+            'author_id': mail_compose_message_vals['author_id'],
+            'template_id': self.journal_id.invoice_mail_template_id.id,
             'composition_mode': 'comment',                    
             'model': 'account.invoice',
             'res_id': self.id,
@@ -46,21 +49,17 @@ class AccountInvoice(models.Model):
     def cron_account_invoice_auto_send_mail_item(self):
         if self.type in ['out_invoice', 'out_refund'] and self.date_invoice_send_mail==False and self.state in ['open', 'paid']:
             current_date = fields.Datetime.from_string(str(datetime.today().strftime("%Y-%m-%d")))
-            days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days            
-            account_invoice_auto_send_mail_days = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_days'))
+            days_difference = (current_date - fields.Datetime.from_string(self.date_invoice)).days
             #send_invoice
             send_invoice = False
             if self.state=='paid':
                  send_invoice = True
             else:
-                if days_difference>=account_invoice_auto_send_mail_days:
+                if days_difference>=self.journal_id.invoice_mail_days:
                     send_invoice = True
             #send_invoice
-            if send_invoice==True:                        
-                account_invoice_auto_send_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_template_id'))
-                account_invoice_auto_send_mail_author_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_author_id'))
-                #account_invoice_auto_send_mail_item_real
-                self.account_invoice_auto_send_mail_item_real(account_invoice_auto_send_mail_template_id, account_invoice_auto_send_mail_author_id)
+            if send_invoice==True:
+                self.account_invoice_auto_send_mail_item_real()
         
     @api.model    
     def cron_account_invoice_auto_send_mail(self):                                          
@@ -68,6 +67,7 @@ class AccountInvoice(models.Model):
             [
                 ('state', 'in', ('open', 'paid')), 
                 ('type', 'in', ('out_invoice', 'out_refund')),
+                ('journal_id.invoice_mail_template_id', '!=', False),
                 ('date_invoice_send_mail', '=', False)
              ], order="date_invoice asc", limit=200
         )        
