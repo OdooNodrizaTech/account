@@ -10,9 +10,8 @@
     'depends': ['base', 'account'],
     'data': [
         'data/ir_cron.xml',
-        'data/ir_configparameter_data.xml',
-        'views/account_invoice_view.xml',                 
+        'views/account_journal_view.xml',
+        'views/account_invoice_view.xml',
     ],
     'installable': True,
-    'auto_install': False,    
 }

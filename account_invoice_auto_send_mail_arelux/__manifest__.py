@@ -7,10 +7,9 @@
     'website': 'https://nodrizatech.com/',
     'category': 'Tools',
     'license': 'AGPL-3',
-    'depends': ['base', 'account_invoice_auto_send_mail', 'external_odoo_base'],
+    'depends': ['base', 'account_invoice_auto_send_mail', 'arelux_partner_questionnaire'],
     'data': [
-        'data/ir_configparameter_data.xml',                 
+        'views/account_journal_view.xml',
     ],
     'installable': True,
-    'auto_install': False,    
 }
