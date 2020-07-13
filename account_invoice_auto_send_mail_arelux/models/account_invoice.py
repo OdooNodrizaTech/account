@@ -12,14 +12,14 @@ class AccountInvoice(models.Model):
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
         #change mail_template_id
         if self.ar_qt_activity_type=='arelux':
-            custom_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_customer_activity_type_arelux_template_id'))
+            custom_mail_template_id = self.journal_id.invoice_mail_template_id_arelux
         elif self.ar_qt_activity_type=='todocesped':
-            custom_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_customer_activity_type_todocesped_template_id'))
+            custom_mail_template_id = self.journal_id.invoice_mail_template_id_todocesped
         elif self.ar_qt_activity_type=='evert':
-            custom_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_customer_activity_type_evert_template_id'))
+            custom_mail_template_id = self.journal_id.invoice_mail_template_id_evert
         elif self.ar_qt_activity_type=='both':
-            custom_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_customer_activity_type_both_template_id'))
+            custom_mail_template_id = self.journal_id.invoice_mail_template_id_both
         else:
-            custom_mail_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_auto_send_mail_customer_activity_type_arelux_template_id'))
+            custom_mail_template_id = self.journal_id.invoice_mail_template_id_arelux
         #account_invoice_auto_send_mail_item_real
         return super(AccountInvoice, self).account_invoice_auto_send_mail_item_real(custom_mail_template_id, author_id)        

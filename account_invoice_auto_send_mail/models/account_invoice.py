@@ -14,7 +14,7 @@ class AccountInvoice(models.Model):
     )
     
     @api.one 
-    def account_invoice_auto_send_mail_item_real(self):
+    def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
         _logger.info('Operaciones account_invoice_auto_send_mail_item_real factura ' + str(self.id))
                     
         mail_compose_message_vals = {
@@ -22,15 +22,15 @@ class AccountInvoice(models.Model):
             'record_name': self.number,                                                                                                                                                                                           
         }
         #Author_id (journal_id)
-        if self.journal_id.invoice_mail_template_id_author_id.id>0:
-            mail_compose_message_vals['author_id'] = self.journal_id.invoice_mail_template_id_author_id.id
+        if author_id.id>0:
+            mail_compose_message_vals['author_id'] = author_id.id
 
         mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(mail_compose_message_vals)
-        return_onchange_template_id = mail_compose_message_obj.onchange_template_id(self.journal_id.invoice_mail_template_id.id, 'comment', 'account.invoice', self.id)
+        return_onchange_template_id = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
                         
         mail_compose_message_obj.update({
             'author_id': mail_compose_message_vals['author_id'],
-            'template_id': self.journal_id.invoice_mail_template_id.id,
+            'template_id': mail_template_id.id,
             'composition_mode': 'comment',                    
             'model': 'account.invoice',
             'res_id': self.id,
@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
                     send_invoice = True
             #send_invoice
             if send_invoice==True:
-                self.account_invoice_auto_send_mail_item_real()
+                self.account_invoice_auto_send_mail_item_real(self.journal_id.invoice_mail_template_id, self.journal_id.invoice_mail_template_id_author_id)
         
     @api.model    
     def cron_account_invoice_auto_send_mail(self):                                          
