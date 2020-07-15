@@ -22,25 +22,30 @@ class AccountInvoice(models.Model):
             'record_name': self.number,                                                                                                                                                                                           
         }
         #Author_id (journal_id)
-        if author_id.id>0:
+        if author_id.id > 0:
             mail_compose_message_vals['author_id'] = author_id.id
 
         mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(mail_compose_message_vals)
         return_onchange_template_id = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
-                        
-        mail_compose_message_obj.update({
+
+        mail_compose_message_obj_vals = {
             'author_id': mail_compose_message_vals['author_id'],
             'template_id': mail_template_id.id,
-            'composition_mode': 'comment',                    
+            'composition_mode': 'comment',
             'model': 'account.invoice',
             'res_id': self.id,
             'body': return_onchange_template_id['value']['body'],
             'subject': return_onchange_template_id['value']['subject'],
             'email_from': return_onchange_template_id['value']['email_from'],
-            'attachment_ids': return_onchange_template_id['value']['attachment_ids'],                    
             'record_name': self.number,
-            'no_auto_thread': False,                     
-        })                                                   
+            'no_auto_thread': False,
+        }
+        #attachment_ids
+        if 'attachment_ids' in return_onchange_template_id['value']:
+            mail_compose_message_obj_vals['attachment_ids'] = return_onchange_template_id['value']['attachment_ids']
+        #update
+        mail_compose_message_obj.update(mail_compose_message_obj_vals)
+        #send_mail_action
         mail_compose_message_obj.send_mail_action()        
         #other
         self.date_invoice_send_mail = datetime.today()        
