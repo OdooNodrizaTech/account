@@ -15,7 +15,7 @@ class AccountInvoice(models.Model):
 
     def account_invoice_auto_send_mail_item_real(self, mail_template_id, author_id):
         self.ensure_one()
-        _logger.info('Operations account_invoice_auto_send_mail_item_real invoice ' % (self.id))
+        _logger.info('Operations account_invoice_auto_send_mail_item_real invoice %s' % self.id)
 
         vals = {
             'author_id': self.user_id.partner_id.id,
