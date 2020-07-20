@@ -4,7 +4,7 @@
     "name": "Account Invoice Auto Send Mail",
     "version": "12.0.1.0.0",
     "category": "Sales Management",
-    "website": "https://nodrizatech.com/",
+    "website": "https://github.com/OCA/account-invoicing",
     "author": "Odoo Nodriza Tech (ONT), "
               "Odoo Community Association (OCA)",
     "license": "AGPL-3",
@@ -14,5 +14,5 @@
         "views/account_journal_view.xml",
         "views/account_invoice_view.xml"
     ],
-    "installable": True,
+    "installable": True
 }
