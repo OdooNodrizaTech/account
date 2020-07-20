@@ -88,5 +88,5 @@ class AccountInvoice(models.Model):
                 _logger.info("%s % (%s/%s)" % (
                     percent,
                     count,
-                    len(invoices)
+                    str(len(invoices))
                 ))
