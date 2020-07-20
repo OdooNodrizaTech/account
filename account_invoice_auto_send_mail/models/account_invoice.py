@@ -85,7 +85,7 @@ class AccountInvoice(models.Model):
                 # logger_percent
                 percent = (float(count) / float(len(invoices))) * 100
                 percent = "{0:.2f}".format(percent)
-                _logger.info("%s % (%s / %s)" % (
+                _logger.info("%s (%s / %s)" % (
                     percent,
                     count,
                     len(invoices)
