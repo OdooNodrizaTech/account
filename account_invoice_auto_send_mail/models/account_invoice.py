@@ -83,7 +83,7 @@ class AccountInvoice(models.Model):
                 # cron_account_invoice_auto_send_mail_item
                 invoice.cron_account_invoice_auto_send_mail_item()
                 # logger_percent
-                percent = (float(count) / float(len(account_invoice_ids))) * 100
+                percent = (float(count) / float(len(invoices))) * 100
                 percent = "{0:.2f}".format(percent)
                 _logger.info("%s % (%s/%s)" % (
                     percent,
