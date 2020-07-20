@@ -46,7 +46,7 @@ class AccountInvoice(models.Model):
         # update
         mail_compose_message_obj.update(vals)
         # send_mail_action
-        mail_compose_message_obj.send_mail_action()
+        mail_compose_message_obj.send_mail()
         # other
         self.date_invoice_send_mail = datetime.today()
 
