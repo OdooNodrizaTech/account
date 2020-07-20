@@ -63,7 +63,7 @@ class AccountInvoice(models.Model):
             # send_invoice
             if send_invoice == True:
                 self.account_invoice_auto_send_mail_item_real(self.journal_id.invoice_mail_template_id,
-                                                              self.journal_id.invoice_mail_template_id_author_id. partner_id)
+                                                              self.journal_id.invoice_mail_author_id.partner_id)
 
     @api.model
     def cron_account_invoice_auto_send_mail(self):
