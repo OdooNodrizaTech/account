@@ -29,7 +29,7 @@ class AccountInvoice(models.Model):
         res = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
 
         vals = {
-            'author_id': mail_compose_message_vals['author_id'],
+            'author_id': vals['author_id'],
             'template_id': mail_template_id.id,
             'composition_mode': 'comment',
             'model': 'account.invoice',
