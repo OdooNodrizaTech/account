@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import logging
-_logger = logging.getLogger(__name__)
 
 from odoo import api, models, fields
 from datetime import datetime
+
 
 class ResPartnerBank(models.Model):
     _inherit = 'res.partner.bank'
@@ -19,18 +17,22 @@ class ResPartnerBank(models.Model):
     def auto_create_banking_mandate_item(self):
         current_date = datetime.today()
         
-        res_partner_banks_ids_get = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)])
-        if res_partner_banks_ids_get!=False:
+        res_partner_banks_ids_get = self.env['res.partner.bank'].search(
+            [
+                ('partner_id', '=', self.partner_id.id)
+            ]
+        )
+        if res_partner_banks_ids_get:
             for res_partner_banks_id_get in res_partner_banks_ids_get:
-                if res_partner_banks_id_get.partner_id.supplier==False:                    
+                if res_partner_banks_id_get.partner_id.supplier == False:
                     account_banking_mandate_ids_get = self.env['account.banking.mandate'].search(
                         [
                             ('state', '!=', 'expired'),
                             ('partner_bank_id', '=', res_partner_banks_id_get.id)
                         ]
                     )
-                    if len(account_banking_mandate_ids_get)==0:
-                        account_banking_mandate_vals = {
+                    if len(account_banking_mandate_ids_get) == 0:
+                        vals = {
                             'auto_create': True,
                             'format': 'sepa',
                             'scheme': 'CORE',
@@ -40,6 +42,5 @@ class ResPartnerBank(models.Model):
                             'partner_id': self.partner_id.id,
                             'signature_date': current_date.strftime("%Y-%m-%d"),                                                             
                         }
-                        account_banking_mandate_obj = self.env['account.banking.mandate'].sudo().create(account_banking_mandate_vals)
-                        #validate
+                        account_banking_mandate_obj = self.env['account.banking.mandate'].sudo().create(vals)
                         account_banking_mandate_obj.validate()                                                            

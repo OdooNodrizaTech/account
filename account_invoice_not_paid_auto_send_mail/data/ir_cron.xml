@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
+
     <record id="cron_account_invoice_not_paid_auto_send_mail" forcecreate="True" model="ir.cron">
         <field name="name">Automation Account Invoice Not Paid</field>
         <field name="active" eval="False"/>
@@ -12,4 +13,5 @@
         <field name="state">code</field>
         <field name="code">model.cron_account_invoice_not_paid_auto_send_mail()</field>
     </record>
+
 </odoo>

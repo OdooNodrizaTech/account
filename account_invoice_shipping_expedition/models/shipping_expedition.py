@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import logging
-_logger = logging.getLogger(__name__)
 
-from odoo import api, models, fields
+from odoo import models, fields
+
 
 class ShippingExpedition(models.Model):
     _inherit = 'shipping.expedition'
@@ -13,18 +11,18 @@ class ShippingExpedition(models.Model):
         string='Account Invoice Id'
     )
     invoice_date = fields.Date(
-        string='Fecha factura'
+        string='Invoice date'
     )
     currency_id = fields.Many2one(
         comodel_name='res.currency',
-        string='Moneda',
+        string='Currency',
     )
     cost = fields.Monetary(
-        string='Coste'
+        string='Cost'
     )
     weight = fields.Float(
-        string='Peso (Kg)'
+        string='Weight'
     )
     number_of_packages = fields.Integer(
-        string='Paquetes'
+        string='Number of packages'
     )

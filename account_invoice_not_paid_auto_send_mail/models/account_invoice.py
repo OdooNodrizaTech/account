@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
 _logger = logging.getLogger(__name__)
@@ -13,19 +12,19 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
     
     date_invoice_not_paid_send_mail = fields.Datetime(
-        string='Fecha no pagado envio email' 
+        string='Date not paid send mail'
     )
     
     @api.one 
     def account_invoice_not_paid_auto_send_mail_item_real(self, mail_template_id, author_id):
         mail_template_id = self.env['mail.template'].browse(mail_template_id)                
                     
-        mail_compose_message_vals = {                    
+        vals = {
             'author_id': author_id,
             'record_name': self.number,                                                                                                                                                                                           
         }
-        mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(mail_compose_message_vals)
-        return_onchange_template_id = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
+        mail_compose_message_obj = self.env['mail.compose.message'].with_context().sudo().create(vals)
+        res = mail_compose_message_obj.onchange_template_id(mail_template_id.id, 'comment', 'account.invoice', self.id)
                         
         mail_compose_message_obj.update({
             'author_id': author_id,
@@ -33,30 +32,30 @@ class AccountInvoice(models.Model):
             'composition_mode': 'comment',                    
             'model': 'account.invoice',
             'res_id': self.id,
-            'body': return_onchange_template_id['value']['body'],
-            'subject': return_onchange_template_id['value']['subject'],
-            'email_from': return_onchange_template_id['value']['email_from'],
-            'attachment_ids': return_onchange_template_id['value']['attachment_ids'],                    
+            'body': res['value']['body'],
+            'subject': res['value']['subject'],
+            'email_from': res['value']['email_from'],
+            'attachment_ids': res['value']['attachment_ids'],
             'record_name': self.number,
             'no_auto_thread': False,                     
         })                                                   
         mail_compose_message_obj.send_mail_action()        
-        #other                                                
+        # other
         self.date_invoice_not_paid_send_mail = datetime.today()
     
     @api.one 
     def cron_account_invoice_not_paid_auto_send_mail_item(self):
-        if self.date_invoice_not_paid_send_mail==False:
-            if self.state=='open' and self.type=='out_invoice':
-                if self.amount_total>0 and self.residual>0:
-                    if self.payment_mode_id.payment_method_id.code!='sepa_direct_debit':
+        if not self.date_invoice_not_paid_send_mail:
+            if self.state in ['open', 'out_invoice']:
+                if self.amount_total > 0 and self.residual > 0:
+                    if self.payment_mode_id.payment_method_id.code != 'sepa_direct_debit':
                         account_invoice_not_paid_template_id = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_not_paid_template_id'))
                         self.account_invoice_not_paid_auto_send_mail_item_real(account_invoice_not_paid_template_id)
     
     @api.model    
     def cron_account_invoice_not_paid_auto_send_mail(self):
         account_invoice_not_paid_days_check = int(self.env['ir.config_parameter'].sudo().get_param('account_invoice_not_paid_days_check'))
-        if account_invoice_not_paid_days_check>0:                
+        if account_invoice_not_paid_days_check > 0:
             current_date = datetime.now(pytz.timezone('Europe/Madrid'))
             date_due_filter = current_date + relativedelta(days=-account_invoice_not_paid_days_check) 
             
@@ -71,6 +70,6 @@ class AccountInvoice(models.Model):
                     ('date_invoice_not_paid_send_mail', '=', False)                
                  ]
             )
-            if len(account_invoice_ids)>0:
+            if account_invoice_ids:
                 for account_invoice_id in account_invoice_ids:
                     account_invoice_id.cron_account_invoice_not_paid_auto_send_mail_item()

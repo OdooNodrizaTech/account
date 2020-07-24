@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import logging
-_logger = logging.getLogger(__name__)
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
+
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
@@ -18,22 +16,22 @@ class AccountInvoiceLine(models.Model):
     @api.one
     def action_calculate_commission(self):
         self.commission = 0        
-        if self.commission_percent!=0 and self.price_subtotal>0 and self.product_id.id>0:
+        if self.commission_percent != 0 and self.price_subtotal > 0 and self.product_id:
             commission_line_item = (self.price_subtotal/100)*self.commission_percent
             self.commission = "{:.2f}".format(commission_line_item)
 
     @api.model
     def define_account_invoice_line_header_info_commission(self):
         return {
-            'number': 'Factura',
-            'name': 'Descripcion linea',
-            'origin': 'Origen',
-            'date_invoice': 'Fecha factura',
-            'date_paid_status': 'Fecha pagado',
-            'partner_name': 'Cliente',
-            'price_subtotal': 'Subtotal linea',
-            'commission_percent': 'Comision %',
-            'commission': 'Comision'
+            'number': _('Invoice'),
+            'name': _('Line description'),
+            'origin': _('Origin'),
+            'date_invoice': _('Date invoice'),
+            'date_paid_status': _('Date paid status'),
+            'partner_name': _('Customer'),
+            'price_subtotal': _('Price subtotal'),
+            'commission_percent': _('Comission %'),
+            'commission': _('Comisison')
         }
 
     @api.one
@@ -49,9 +47,9 @@ class AccountInvoiceLine(models.Model):
             'commission_percent': self.commission_percent,
             'commission': self.commission,
         }
-        #out_refund
-        if self.invoice_id.type=='out_refund':
+        # out_refund
+        if self.invoice_id.type == 'out_refund':
             return_info['price_subtotal'] = return_info['price_subtotal']*-1
             return_info['commission'] = return_info['commission'] * -1
-        #return
+        # return
         return return_info

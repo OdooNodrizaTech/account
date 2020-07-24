@@ -1,6 +1,6 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo import api, models, fields
+
+from odoo import api, models, _
 from odoo.exceptions import Warning
 
 import logging
@@ -14,9 +14,9 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for obj in self:
-            if obj.type == "in_invoice" and obj.reference == False:
+            if obj.type == "in_invoice" and not obj.reference:
                 allow_confirm = False
-                raise Warning("Es necesario definir una referencia de proveedor para validar la factura de compra")
+                raise Warning(_('It is necessary to define a supplier reference to validate the purchase invoice'))
         # allow_confirm
-        if allow_confirm == True:
+        if allow_confirm:
             return super(AccountInvoice, self).action_invoice_open()

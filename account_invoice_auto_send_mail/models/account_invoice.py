@@ -64,7 +64,10 @@ class AccountInvoice(models.Model):
                     send_invoice = True
             # send_invoice
             if send_invoice:
-                self.account_invoice_auto_send_mail_item_real(self.journal_id.invoice_mail_template_id, self.journal_id.invoice_mail_author_id.partner_id)
+                self.account_invoice_auto_send_mail_item_real(
+                    self.journal_id.invoice_mail_template_id,
+                    self.journal_id.invoice_mail_author_id.partner_id
+                )
 
     @api.model
     def cron_account_invoice_auto_send_mail(self):
@@ -74,7 +77,9 @@ class AccountInvoice(models.Model):
                 ('type', 'in', ('out_invoice', 'out_refund')),
                 ('journal_id.invoice_mail_template_id', '!=', False),
                 ('date_invoice_send_mail', '=', False)
-             ], order="date_invoice asc", limit=200
+             ],
+            order="date_invoice asc",
+            limit=200
         )
         if invoices:
             count = 0

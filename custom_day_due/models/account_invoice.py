@@ -1,7 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 import datetime
-from odoo import api, models, fields
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
@@ -12,12 +12,12 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self).action_move_create()                            
         for inv in self:
             custom_days_due = inv.generate_custom_days_due()
-            if len(custom_days_due)>0:
+            if len(custom_days_due) > 0:
                 date_due = False
                 day_date_due = False
                                                                                                                 
                 for line_id in inv.move_id.line_ids:
-                    if line_id.debit>0:
+                    if line_id.debit > 0:
                         
                         date_due = datetime.datetime.strptime(line_id.date_maturity.strftime("%Y-%m-%d"), "%Y-%m-%d")
                         day_date_due = int(date_due.strftime('%d'))
@@ -32,56 +32,63 @@ class AccountInvoice(models.Model):
     def generate_custom_days_due(self):
         custom_days_due = []
         
-        if self.type=="in_invoice":
-            if self.partner_id.custom_day_due_1_purchase!=False or self.partner_id.custom_day_due_2_purchase!=False or self.partner_id.custom_day_due_3_purchase!=False or self.partner_id.custom_day_due_4_purchase!=False:            
-                #custom_day_due_1_purchase
-                if self.partner_id.custom_day_due_1_purchase!=False and self.partner_id.custom_day_due_1_purchase.isnumeric()==True: 
+        if self.type == "in_invoice":
+            if self.partner_id.custom_day_due_1_purchase \
+                    or self.partner_id.custom_day_due_2_purchase \
+                    or self.partner_id.custom_day_due_3_purchase \
+                    or self.partner_id.custom_day_due_4_purchase:
+                # custom_day_due_1_purchase
+                if self.partner_id.custom_day_due_1_purchase \
+                        and self.partner_id.custom_day_due_1_purchase.isnumeric():
                     custom_day_due_1 = int(self.partner_id.custom_day_due_1_purchase)
-                    if(custom_day_due_1>0):         
+                    if custom_day_due_1 > 0:
                         custom_days_due.append(custom_day_due_1)
-                    
-                #custom_day_due_2_purchase
-                if self.partner_id.custom_day_due_2_purchase!=False and self.partner_id.custom_day_due_2_purchase.isnumeric()==True:
+                # custom_day_due_2_purchase
+                if self.partner_id.custom_day_due_2_purchase \
+                        and self.partner_id.custom_day_due_2_purchase.isnumeric():
                     custom_day_due_2 = int(self.partner_id.custom_day_due_2_purchase)
-                    if(custom_day_due_2>0):         
+                    if custom_day_due_2 > 0:
                         custom_days_due.append(custom_day_due_2)
-                            
-                #custom_day_due_3_purchase
-                if self.partner_id.custom_day_due_3_purchase!=False and self.partner_id.custom_day_due_3_purchase.isnumeric()==True:
+                # custom_day_due_3_purchase
+                if self.partner_id.custom_day_due_3_purchase \
+                        and self.partner_id.custom_day_due_3_purchase.isnumeric():
                     custom_day_due_3 = int(self.partner_id.custom_day_due_3_purchase)
-                    if(custom_day_due_3>0):         
+                    if custom_day_due_3 > 0:
                         custom_days_due.append(custom_day_due_3)
-                    
-                #custom_day_due_4_purchase
-                if self.partner_id.custom_day_due_4_purchase!=False and self.partner_id.custom_day_due_4_purchase.isnumeric()==True:
+                # custom_day_due_4_purchase
+                if self.partner_id.custom_day_due_4_purchase \
+                        and self.partner_id.custom_day_due_4_purchase.isnumeric():
                     custom_day_due_4 = int(self.partner_id.custom_day_due_4_purchase)
-                    if(custom_day_due_4>0):         
+                    if custom_day_due_4 > 0:
                         custom_days_due.append(custom_day_due_4)
-                    
         else:
-            if self.partner_id.custom_day_due_1!=False or self.partner_id.custom_day_due_2!=False or self.partner_id.custom_day_due_3!=False or self.partner_id.custom_day_due_4!=False:        
-                #custom_day_due_1
-                if self.partner_id.custom_day_due_1!=False and self.partner_id.custom_day_due_1.isnumeric()==True:
+            if self.partner_id.custom_day_due_1 \
+                    or self.partner_id.custom_day_due_2 \
+                    or self.partner_id.custom_day_due_3 \
+                    or self.partner_id.custom_day_due_4:
+                # custom_day_due_1
+                if self.partner_id.custom_day_due_1 \
+                        and self.partner_id.custom_day_due_1.isnumeric():
                     custom_day_due_1 = int(self.partner_id.custom_day_due_1)
-                    if(custom_day_due_1>0):         
+                    if custom_day_due_1 > 0:
                         custom_days_due.append(custom_day_due_1)
-                    
-                #custom_day_due_2
-                if self.partner_id.custom_day_due_2!=False and self.partner_id.custom_day_due_2.isnumeric()==True:
+                # custom_day_due_2
+                if self.partner_id.custom_day_due_2 \
+                        and self.partner_id.custom_day_due_2.isnumeric():
                     custom_day_due_2 = int(self.partner_id.custom_day_due_2)
-                    if(custom_day_due_2>0):         
+                    if custom_day_due_2 > 0:
                         custom_days_due.append(custom_day_due_2)
-                            
-                #custom_day_due_3
-                if self.partner_id.custom_day_due_3!=False and self.partner_id.custom_day_due_3.isnumeric()==True:
+                # custom_day_due_3
+                if self.partner_id.custom_day_due_3 \
+                        and self.partner_id.custom_day_due_3.isnumeric():
                     custom_day_due_3 = int(self.partner_id.custom_day_due_3)
-                    if(custom_day_due_3>0):         
+                    if custom_day_due_3 > 0:
                         custom_days_due.append(custom_day_due_3)
-                    
-                #custom_day_due_4
-                if self.partner_id.custom_day_due_4!=False and self.partner_id.custom_day_due_4.isnumeric()==True:
+                # custom_day_due_4
+                if self.partner_id.custom_day_due_4 \
+                        and self.partner_id.custom_day_due_4.isnumeric():
                     custom_day_due_4 = int(self.partner_id.custom_day_due_4)
-                    if(custom_day_due_4>0):         
+                    if custom_day_due_4 > 0:
                         custom_days_due.append(custom_day_due_4)
                     
         return custom_days_due
@@ -91,11 +98,11 @@ class AccountInvoice(models.Model):
         res = super(AccountInvoice, self)._onchange_payment_term_date_invoice()        
         self.ensure_one()
                                     
-        if self.date_due!=False:
+        if self.date_due:
             old_date_due = self.date_due
             
             custom_days_due = self.generate_custom_days_due()
-            if len(custom_days_due)>0:                            
+            if len(custom_days_due) > 0:
                 date_due = datetime.datetime.strptime(self.date_due.strftime("%Y-%m-%d"), "%Y-%m-%d")
                 day_date_due = int(date_due.strftime('%d'))
                 

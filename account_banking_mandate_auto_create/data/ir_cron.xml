@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
+
     <record id="cron_fix_auto_create_banking_mandate" forcecreate="True" model="ir.cron">
         <field name="name">Check Fix Auto Create - Banking Mandate</field>
         <field name="active" eval="True"/>
@@ -12,4 +13,5 @@
         <field name="state">code</field>
         <field name="code">model.cron_fix_auto_create_banking_mandate()</field>
     </record>
+
 </odoo>

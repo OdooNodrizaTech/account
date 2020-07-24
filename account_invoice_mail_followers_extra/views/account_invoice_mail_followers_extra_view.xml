@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="account_invoice_mail_followers_extra_action" model="ir.actions.act_window">
-        <field name="name">Seguidores extra facturas</field>
+        <field name="name">Followers extra invoices</field>
         <field name="res_model">account.invoice.mail.followers.extra</field>
         <field name="view_mode">tree,form</field>                
     </record>
+
     <record id="account_invoice_mail_followers_extra_action_tree" model="ir.ui.view">
-        <field name="name">Seguidores extra facturas</field>
+        <field name="name">Followers extra invoices</field>
         <field name="model">account.invoice.mail.followers.extra</field>
          <field name="arch" type="xml">
-            <tree string="Seguidores extra">
+            <tree string="Extra followers">
                 <field name="partner_id"/>                    
             </tree>
         </field>            
-    </record>          
+    </record>
+
     <menuitem 
         action="account_invoice_mail_followers_extra_action" 
-        name="Seguidores extra facturas"
+        name="Followers extra invoices"
         id="menuitem_account_invoice_mail_followers_extra" 
         parent="contacts.res_partner_menu_config"
         sequence="10"

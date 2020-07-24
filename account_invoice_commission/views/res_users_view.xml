@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="account_invoice_commission_view_users_form_mail" model="ir.ui.view">
         <field name="name">account_invoice_commission_view_users_form_mail</field>
         <field name="model">res.users</field>
@@ -9,5 +10,6 @@
                 <field name="invoice_commission_percent" groups="base.group_system"/>
 	       </field>                       
         </field>
-    </record>    
+    </record>
+
 </odoo>

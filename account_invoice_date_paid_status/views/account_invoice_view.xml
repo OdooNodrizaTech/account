@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="account_invoice_date_paid_status_invoice_form" model="ir.ui.view">
         <field name="name">ont_base_account_invoice_form</field>
         <field name="model">account.invoice</field>
@@ -11,4 +12,5 @@
             </field>
         </field>
     </record>
+
 </odoo>

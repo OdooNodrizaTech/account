@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="res_bank_form_extra" model="ir.ui.view">
         <field name="name">res_bank_form_extra</field>
         <field name="model">res.bank</field>
@@ -9,5 +10,6 @@
                 <field name="partner_id"/>
             </field>                        
         </field>
-    </record>                
+    </record>
+
 </odoo>

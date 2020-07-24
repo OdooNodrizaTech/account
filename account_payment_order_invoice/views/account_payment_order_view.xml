@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <record id="account_payment_order_invoice_tree" model="ir.ui.view">
         <field name="name">account_payment_order_invoice_tree</field>
         <field name="model">account.payment.order</field>
@@ -10,7 +11,8 @@
                 <field name="invoice_id"/>
             </field>                        
         </field>
-    </record>    
+    </record>
+
     <record id="account_payment_order_invoice_form" model="ir.ui.view">
         <field name="name">account_payment_order_invoice_form</field>
         <field name="model">account.payment.order</field>
@@ -22,5 +24,6 @@
                 <field name="invoice_id" readonly="1"/>
             </field>                                                
         </field>
-    </record>        
+    </record>
+
 </odoo>
