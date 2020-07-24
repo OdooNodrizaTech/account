@@ -4,7 +4,8 @@ from odoo import api, models
 from odoo.exceptions import Warning
 from datetime import datetime
 
-import requests, json
+import requests
+import json
 
 class ResPartnerBank(models.Model):
     _inherit = 'res.partner.bank'

@@ -17,10 +17,10 @@ class AccountPaymentOrder(models.Model):
    
     @api.multi
     def generated2uploaded(self):
-        if self.payment_type == 'inbound' and self.amount_untaxed_invoice >0  and not self.invoice_id.id:
-            account_payment_order_invoice_product_id = int(self.env['ir.config_parameter'].sudo().get_param('account_payment_order_invoice_product_id'))
-            if account_payment_order_invoice_product_id > 0:
-                product = self.env['product.product'].browse(account_payment_order_invoice_product_id)         
+        if self.payment_type == 'inbound' and self.amount_untaxed_invoice > 0 and not self.invoice_id.id:
+            product_id = int(self.env['ir.config_parameter'].sudo().get_param('account_payment_order_invoice_product_id'))
+            if product_id > 0:
+                product = self.env['product.product'].browse(product_id)
                 vals = {
                     'partner_id': self.company_partner_bank_id.bank_id.partner_id.id,
                     'date': datetime.today(),
