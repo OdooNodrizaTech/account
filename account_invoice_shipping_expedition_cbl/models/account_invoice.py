@@ -1,10 +1,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import logging
-_logger = logging.getLogger(__name__)
 
 from odoo import api, models, _
-from odoo.exceptions import Warning
-import xlrd
+from odoo.exceptions import Warning as UserError
+
+try:
+    import xlrd
+except ImportError:
+    _logger.debug('Cannot import xlrd')
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
@@ -24,7 +26,7 @@ class AccountInvoice(models.Model):
             values_line_33 = sheet.row_values(32)
             num_factura = str(values_line_33[4])
             if num_factura != self.reference:
-                raise Warning(_('The invoice number of the line does not match that of the invoice'))
+                raise UserError(_('The invoice number of the line does not match that of the invoice'))
             else:
                 data_lines = []
                 find_total = False

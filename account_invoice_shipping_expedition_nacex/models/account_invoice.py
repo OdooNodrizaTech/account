@@ -1,9 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import logging
-_logger = logging.getLogger(__name__)
 
 from odoo import api, models, _
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning as UserError
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
@@ -38,18 +36,20 @@ class AccountInvoice(models.Model):
                                 # fecha_albaran
                                 fecha_albaran = line_data[5]
                                 fecha_albaran_split = fecha_albaran.split('/')
-                                fecha_albaran = fecha_albaran_split[2]+'-'+fecha_albaran_split[1]+'-'+fecha_albaran_split[0]
+                                fecha_albaran = '%s-%s-%s' % (
+                                    fecha_albaran_split[2],
+                                    fecha_albaran_split[1],
+                                    fecha_albaran_split[0]
+                                )
                                 # others
                                 referencia = line_data[6]
                                 number_of_packages = line_data[17]
                                 weight = line_data[18].replace(',', '.')
                                 cost = line_data[22].replace(',', '.')
                                 # ooperations
-                                if departamento != 'ONLINE':
-                                    _logger.info('NO es Online (RARO)')
-                                else:
+                                if departamento == 'ONLINE':
                                     if num_factura != self.reference:
-                                        raise Warning(_('The invoice number of the line does not match that of the invoice'))
+                                        raise UserError(_('The invoice number of the line does not match that of the invoice'))
                                     else:
                                         lines[albaran] = {
                                             'delivery_code': albaran,

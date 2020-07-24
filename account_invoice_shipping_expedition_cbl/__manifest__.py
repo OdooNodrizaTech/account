@@ -13,7 +13,7 @@
         "shipping_expedition_cbl"
     ],
     "external_dependencies": {
-        "python": [
+        "python3": [
             "xlrd"
         ],
     },
