@@ -15,7 +15,6 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
     _name = 'wizard.account.invoice.line.commission'
     _description = 'Wizard Account Invoice Line Commission'
 
-    #data = fields.Binary('Content', readonly=True)
     from_date = fields.Date(
         string='Date from',
         help='Date from invoice payment end date',
@@ -78,7 +77,6 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                 if len(account_invoice_ids) == 0:
                     raise Warning(_('No invoices matching the criteria were found'))
                 else:
-                    # res_users
                     res_users_ids = self.env['res.users'].sudo().search(
                         [
                             ('id', 'in', account_invoice_ids.mapped('user_id').ids)
@@ -120,17 +118,24 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                     # append
                                     account_invoice_line_by_user_id[res_users_id.id].append(info_line)
                                 # format round
-                                res_users_id_info[res_users_id.id]['total_price_subtotal'] = "{0:.2f}".format(res_users_id_info[res_users_id.id]['total_price_subtotal'])
-                                res_users_id_info[res_users_id.id]['total_commission'] = "{0:.2f}".format(res_users_id_info[res_users_id.id]['total_commission'])
+                                res_users_id_info[res_users_id.id]['total_price_subtotal'] = "{0:.2f}".format(
+                                    res_users_id_info[res_users_id.id]['total_price_subtotal']
+                                )
+                                res_users_id_info[res_users_id.id]['total_commission'] = "{0:.2f}".format(
+                                    res_users_id_info[res_users_id.id]['total_commission']
+                                )
                         # define
                         path_file = os.path.abspath(__file__).split('wizard/')[0]
-                        header_info_line = self.env[ 'account.invoice.line'].sudo().define_account_invoice_line_header_info_commission()
+                        header_info_line = self.env['account.invoice.line'].sudo().define_account_invoice_line_header_info_commission()
                         # generate zip file
                         file_names = []
                         for res_users_id in res_users_ids:
                             res_users_id_info_item = res_users_id_info[res_users_id.id]
                             if res_users_id.id not in account_invoice_line_by_user_id:
-                                _logger.info(_('Very strange that ID %s does not exist in account_invoice_line_by_user_id') % res_users_id.id)
+                                _logger.info(
+                                    _('Very strange that ID %s does not exist in account_invoice_line_by_user_id')
+                                    % res_users_id.id
+                                )
                             else:
                                 # xlsx
                                 xlsx_name = '%s%s.xlsx' % (path_file, res_users_id_info_item['name_unidecode'])
@@ -169,7 +174,7 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                 workbook.close()
                         # generate_zip_file
                         if len(file_names)>0:
-                            zip_name = '%scomisiones.zip' % (path_file)
+                            zip_name = '%scomisiones.zip' % path_file
                             # zip_operations
                             zipObj = ZipFile(zip_name, 'w')
                             # Add multiple files to the zip
@@ -188,7 +193,7 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                 _logger.info(_('Here we will delete the file% s') % file_name)
         # return
         return True
-
+        '''
         return {
             'type': 'ir.actions.act_window',
             'res_model': 'wizard.account.invoice.line.commission',
@@ -197,3 +202,5 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
             'views': [(False, 'form')],
             'target': 'new',
         }
+        '''
+

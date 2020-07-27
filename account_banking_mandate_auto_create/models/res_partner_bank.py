@@ -24,7 +24,7 @@ class ResPartnerBank(models.Model):
         )
         if res_partner_banks_ids_get:
             for res_partner_banks_id_get in res_partner_banks_ids_get:
-                if res_partner_banks_id_get.partner_id.supplier == False:
+                if not res_partner_banks_id_get.partner_id.supplier:
                     account_banking_mandate_ids_get = self.env['account.banking.mandate'].search(
                         [
                             ('state', '!=', 'expired'),
@@ -43,4 +43,4 @@ class ResPartnerBank(models.Model):
                             'signature_date': current_date.strftime("%Y-%m-%d"),                                                             
                         }
                         account_banking_mandate_obj = self.env['account.banking.mandate'].sudo().create(vals)
-                        account_banking_mandate_obj.validate()                                                            
+                        account_banking_mandate_obj.validate()

@@ -28,11 +28,9 @@ class AccountBankingMandate(models.Model):
                 ]
             )
             if res_partner_bank_ids:
-                partner_ids = res_partner_bank_ids.mapped('partner_id')
-                # buscamos cuentas bancarias de los contactos que NO son estos
                 res_partner_bank_ids = self.env['res.partner.bank'].search(
                     [
-                        ('partner_id', 'not in', partner_ids.ids)
+                        ('partner_id', 'not in', res_partner_bank_ids.mapped('partner_id').ids)
                     ]
                 )
                 if res_partner_bank_ids:
@@ -48,4 +46,4 @@ class AccountBankingMandate(models.Model):
                             'signature_date': current_date.strftime("%Y-%m-%d"),                                                             
                         }
                         account_banking_mandate_obj = self.env['account.banking.mandate'].sudo().create(vals)
-                        account_banking_mandate_obj.validate()                                                    
+                        account_banking_mandate_obj.validate()

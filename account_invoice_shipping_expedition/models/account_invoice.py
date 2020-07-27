@@ -66,7 +66,10 @@ class AccountInvoice(models.Model):
                     del lines[str(shipping_expedition_id[filter_key])]
             # auto-create
             if auto_create_new_shipping_expedition and len(lines) > 0:
-                _logger.info(_('Missing to create %s expeditions that have invoiced us and we did not have') % len(lines))
+                _logger.info(
+                    _('Missing to create %s expeditions that have invoiced us and we did not have')
+                    % len(lines)
+                )
                 lines_old = lines
                 lines = {}
                 origins = []

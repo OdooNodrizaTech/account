@@ -8,4 +8,4 @@ class ResUsers(models.Model):
 
     invoice_commission_percent = fields.Float(
         string='% Invoice commision'
-    )            
+    )

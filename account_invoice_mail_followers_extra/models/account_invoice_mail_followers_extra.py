@@ -15,4 +15,4 @@ class AccountInvoiceMailFollowersExtra(models.Model):
     partner_ids_extra = fields.Many2many(
         comodel_name='res.partner', 
         string='Followers extra bills'
-    )                                                                        
+    )

@@ -49,7 +49,9 @@ class AccountInvoice(models.Model):
                                 # ooperations
                                 if departamento == 'ONLINE':
                                     if num_factura != self.reference:
-                                        raise UserError(_('The invoice number of the line does not match that of the invoice'))
+                                        raise UserError(
+                                            _('The invoice number of the line does not match that of the invoice')
+                                        )
                                     else:
                                         lines[albaran] = {
                                             'delivery_code': albaran,

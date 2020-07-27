@@ -52,7 +52,9 @@ class AccountInvoice(models.Model):
 
     def cron_account_invoice_auto_send_mail_item(self):
         self.ensure_one()
-        if self.type in ['out_invoice', 'out_refund'] and not self.date_invoice_send_mail and self.state in ['open', 'paid']:
+        if self.type in ['out_invoice', 'out_refund'] \
+                and not self.date_invoice_send_mail \
+                and self.state in ['open', 'paid']:
             current_date = fields.Date.context_today(self)
             days_difference = (current_date - fields.Date.from_string(self.date_invoice)).days
             # send_invoice
@@ -95,3 +97,4 @@ class AccountInvoice(models.Model):
                     count,
                     len(invoices)
                 ))
+

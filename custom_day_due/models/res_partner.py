@@ -294,4 +294,4 @@ class ResPartner(models.Model):
             ('31', '31'),                    
         ],
         string='Custom day due 4',
-    )                                           
+    )

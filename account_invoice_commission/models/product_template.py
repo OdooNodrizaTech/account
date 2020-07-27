@@ -9,4 +9,4 @@ class ProductTemplate(models.Model):
     not_allow_account_invoice_commission = fields.Boolean(
         string='Not commission',
         help='Not allow commission in invoice'
-    )            
+    )

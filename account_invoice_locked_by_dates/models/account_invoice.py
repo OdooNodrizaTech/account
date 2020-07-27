@@ -28,16 +28,25 @@ class AccountInvoice(models.Model):
                     if self.date_invoice:
                         if self.date_invoice <= date_limit:
                             validate_invoice_ok = False        
-                            raise Warning(_('The specified invoice date cannot be less than the one used to block invoices %s') % date_limit)
+                            raise Warning(
+                                _('The specified invoice date cannot be less than the one used to block invoices %s')
+                                % date_limit
+                            )
                 else:
                     if self.date:
                         if self.date <= date_limit:
                             validate_invoice_ok = False        
-                            raise Warning(_('The specified accounting date of the invoice cannot be less than the one used to block invoices %s') % date_limit)
+                            raise Warning(
+                                _('The specified accounting date of the invoice cannot be less than the one used to block invoices %s')
+                                % date_limit
+                            )
                     else:
                         if self.date_invoice <= date_limit:
                             validate_invoice_ok = False        
-                            raise Warning(_('The specified invoice date cannot be less than the one used to block invoices %s') % date_limit)
+                            raise Warning(
+                                _('The specified invoice date cannot be less than the one used to block invoices %s')
+                                % date_limit
+                            )
                 
         if validate_invoice_ok:
             return super(AccountInvoice, self).action_invoice_open()
@@ -60,12 +69,18 @@ class AccountInvoice(models.Model):
                 if self.type in ['out_invoice', 'out_refund']:
                     if self.date_invoice <= date_limit:
                         cancel_invoice_ok = False        
-                        raise Warning(_('The invoice cannot be canceled as the date of the invoice is lower than the one used to block invoices %s') % date_limit)
+                        raise Warning(
+                            _('The invoice cannot be canceled as the date of the invoice is lower than the one used to block invoices %s')
+                            % date_limit
+                        )
                 else:
                     if self.date:
                         if self.date <= date_limit:
                             cancel_invoice_ok = False        
-                            raise Warning(_('The invoice cannot be canceled as the accounting date of the invoice is lower than the one used to block invoices %s') % date_limit)
+                            raise Warning(
+                                _('The invoice cannot be canceled as the accounting date of the invoice is lower than the one used to block invoices %s')
+                                % date_limit
+                            )
     
         if cancel_invoice_ok:
-            return super(AccountInvoice, self).action_invoice_cancel()                                                                                                                                                                                            
+            return super(AccountInvoice, self).action_invoice_cancel()

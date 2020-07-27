@@ -44,4 +44,4 @@ class AccountPaymentOrder(models.Model):
                 account_invoice_line_obj._onchange_product_id()
                 account_invoice_obj.compute_taxes()        
         # super
-        return super(AccountPaymentOrder, self).generated2uploaded()                                                                                      
+        return super(AccountPaymentOrder, self).generated2uploaded()
