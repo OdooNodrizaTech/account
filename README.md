@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/OdooNodrizaTech/account.svg?branch=12.0)](https://travis-ci.org/OdooNodrizaTech/account)
+[![Coverage Status](https://coveralls.io/repos/OdooNodrizaTech/account/badge.svg?branch=12.0)](https://coveralls.io/r/OdooNodrizaTech/account?branch=12.0)
+
 account
 =========
 Módulos relacionados con Account
