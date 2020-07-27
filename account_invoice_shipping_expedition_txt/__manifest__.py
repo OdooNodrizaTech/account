@@ -13,9 +13,7 @@
         "shipping_expedition_txt"
     ],
     "external_dependencies": {
-        "python3": [
-            "xlrd"
-        ],
+        "python": ["xlrd"],
     },
     "data": [],
     "installable": True
