@@ -11,6 +11,7 @@ from zipfile import ZipFile
 import logging
 _logger = logging.getLogger(__name__)
 
+
 class WizardAccountInvoiceLineCommission(models.TransientModel):
     _name = 'wizard.account.invoice.line.commission'
     _description = 'Wizard Account Invoice Line Commission'
@@ -41,7 +42,8 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
     )
     mark_as_paid = fields.Boolean(
         string='Mark as paid',
-        help='If YES is checked, the commission payment date will be auto-defined NOW for all invoice lines (which have a commission) and their invoices',
+        help='If YES is checked, the commission payment date will be auto-defined '
+             'NOW for all invoice lines (which have a commission) and their invoices',
         required=True,
         default=True
     )
@@ -138,7 +140,10 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                 )
                             else:
                                 # xlsx
-                                xlsx_name = '%s%s.xlsx' % (path_file, res_users_id_info_item['name_unidecode'])
+                                xlsx_name = '%s%s.xlsx' % (
+                                    path_file,
+                                    res_users_id_info_item['name_unidecode']
+                                )
                                 file_names.append(xlsx_name)
                                 workbook = xlsxwriter.Workbook(xlsx_name)
                                 worksheet = workbook.add_worksheet()

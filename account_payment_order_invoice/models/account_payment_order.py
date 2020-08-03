@@ -17,8 +17,14 @@ class AccountPaymentOrder(models.Model):
    
     @api.multi
     def generated2uploaded(self):
-        if self.payment_type == 'inbound' and self.amount_untaxed_invoice > 0 and not self.invoice_id.id:
-            product_id = int(self.env['ir.config_parameter'].sudo().get_param('account_payment_order_invoice_product_id'))
+        if self.payment_type == 'inbound' \
+                and self.amount_untaxed_invoice > 0 \
+                and not self.invoice_id.id:
+            product_id = int(
+                self.env['ir.config_parameter'].sudo().get_param(
+                    'account_payment_order_invoice_product_id'
+                )
+            )
             if product_id > 0:
                 product = self.env['product.product'].browse(product_id)
                 vals = {
@@ -29,9 +35,8 @@ class AccountPaymentOrder(models.Model):
                     'type': 'in_invoice',
                     'comment': ' ',                                         
                 }
-                account_invoice_obj = self.env['account.invoice'].sudo().create(vals)
-                self.invoice_id = account_invoice_obj.id
-                
+                invoice_obj = self.env['account.invoice'].sudo().create(vals)
+                self.invoice_id = invoice_obj.id
                 vals = {
                     'invoice_id': self.invoice_id.id,
                     'product_id': product.id,
@@ -40,8 +45,8 @@ class AccountPaymentOrder(models.Model):
                     'price_unit': self.amount_untaxed_invoice,
                     'account_id': product.property_account_expense_id.id,                    
                 }                
-                account_invoice_line_obj = self.env['account.invoice.line'].sudo().create(vals)
-                account_invoice_line_obj._onchange_product_id()
-                account_invoice_obj.compute_taxes()        
+                invoice_line_obj = self.env['account.invoice.line'].sudo().create(vals)
+                invoice_line_obj._onchange_product_id()
+                invoice_line_obj.compute_taxes()
         # super
         return super(AccountPaymentOrder, self).generated2uploaded()

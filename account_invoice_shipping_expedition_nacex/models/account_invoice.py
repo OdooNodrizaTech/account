@@ -6,12 +6,15 @@ from odoo.exceptions import Warning as UserError
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.one
+    @api.multi
     def shipping_expedition_datas_override(self, file_encoded):
-        return_action = super(AccountInvoice, self).shipping_expedition_datas_override(file_encoded)
+        self.ensure_one()
+        return_action = super(AccountInvoice, self).shipping_expedition_datas_override(
+            file_encoded
+        )
         # operations
-        delivery_carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
-        if delivery_carrier_id.carrier_type == 'nacex':
+        carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
+        if carrier_id.carrier_type == 'nacex':
             lines = {}
             file_encoded_split = file_encoded.split('\n')
             if len(file_encoded_split) > 1:

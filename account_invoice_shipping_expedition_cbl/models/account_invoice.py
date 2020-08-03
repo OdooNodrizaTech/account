@@ -8,15 +8,19 @@ try:
 except ImportError:
     _logger.debug('Cannot import xlrd')
 
+
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.one
+    @api.multi
     def shipping_expedition_datas_override(self, file_encoded):
-        return_action = super(AccountInvoice, self).shipping_expedition_datas_override(file_encoded)
+        self.ensure_one()
+        return_action = super(AccountInvoice, self).shipping_expedition_datas_override(
+            file_encoded
+        )
         # operations
-        delivery_carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
-        if delivery_carrier_id.carrier_type == 'cbl':
+        carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
+        if carrier_id.carrier_type == 'cbl':
             # define
             lines = {}
             # xlrd
@@ -26,7 +30,9 @@ class AccountInvoice(models.Model):
             values_line_33 = sheet.row_values(32)
             num_factura = str(values_line_33[4])
             if num_factura != self.reference:
-                raise UserError(_('The invoice number of the line does not match that of the invoice'))
+                raise UserError(
+                    _('The invoice number of the line does not match that of the invoice')
+                )
             else:
                 data_lines = []
                 find_total = False
@@ -34,7 +40,7 @@ class AccountInvoice(models.Model):
                     if not find_total:
                         row_values = sheet.row_values(row_index)
                         row_value_0 = row_values[0]
-                        if row_value_0 != '':# Empty row
+                        if row_value_0 != '':
                             if row_value_0 == 'Total':
                                 find_total = True
                             else:

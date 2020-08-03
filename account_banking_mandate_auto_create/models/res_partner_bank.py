@@ -9,29 +9,28 @@ class ResPartnerBank(models.Model):
 
     @api.model
     def create(self, values):
-        return_create = super(ResPartnerBank, self).create(values)
-        return_create.auto_create_banking_mandate_item()        
-        return return_create        
+        res = super(ResPartnerBank, self).create(values)
+        res.auto_create_banking_mandate_item()
+        return res
         
     @api.one    
     def auto_create_banking_mandate_item(self):
         current_date = datetime.today()
-        
-        res_partner_banks_ids_get = self.env['res.partner.bank'].search(
+        partner_banks_ids = self.env['res.partner.bank'].search(
             [
                 ('partner_id', '=', self.partner_id.id)
             ]
         )
-        if res_partner_banks_ids_get:
-            for res_partner_banks_id_get in res_partner_banks_ids_get:
-                if not res_partner_banks_id_get.partner_id.supplier:
-                    account_banking_mandate_ids_get = self.env['account.banking.mandate'].search(
+        if partner_banks_ids:
+            for partner_bank_id in partner_banks_ids:
+                if not partner_bank_id.partner_id.supplier:
+                    mandate_ids = self.env['account.banking.mandate'].search(
                         [
                             ('state', '!=', 'expired'),
-                            ('partner_bank_id', '=', res_partner_banks_id_get.id)
+                            ('partner_bank_id', '=', partner_bank_id.id)
                         ]
                     )
-                    if len(account_banking_mandate_ids_get) == 0:
+                    if len(mandate_ids) == 0:
                         vals = {
                             'auto_create': True,
                             'format': 'sepa',
@@ -42,5 +41,5 @@ class ResPartnerBank(models.Model):
                             'partner_id': self.partner_id.id,
                             'signature_date': current_date.strftime("%Y-%m-%d"),                                                             
                         }
-                        account_banking_mandate_obj = self.env['account.banking.mandate'].sudo().create(vals)
-                        account_banking_mandate_obj.validate()
+                        mandate_obj = self.env['account.banking.mandate'].sudo().create(vals)
+                        mandate_obj.validate()
