@@ -112,7 +112,7 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                             )
                             if line_ids:
                                 for line_id in line_ids:
-                                    info_line = line_id.define_account_invoice_line_info_commission()[0]
+                                    info_line = line_id.define_info_commission()[0]
                                     # res_users_id_info
                                     res_users_id_info[res_users_id.id][
                                         'total_price_subtotal'
@@ -121,28 +121,39 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                         'total_commission'
                                     ] += info_line['commission']
                                     # fields_round
-                                    fields = ['price_subtotal', 'commission_percent', 'commission']
+                                    fields = [
+                                        'price_subtotal', 'commission_percent',
+                                        'commission'
+                                    ]
                                     for field in fields:
                                         if field in info_line:
-                                            info_line[field] = "{0:.2f}".format(info_line[field])
+                                            info_line[field] = "{0:.2f}".format(
+                                                info_line[field]
+                                            )
                                     # append
-                                    account_invoice_line_by_user_id[res_users_id.id].append(info_line)
+                                    account_invoice_line_by_user_id[
+                                        res_users_id.id
+                                    ].append(info_line)
                                 # format round
                                 res_users_id_info[res_users_id.id][
                                     'total_price_subtotal'
                                 ] = "{0:.2f}".format(
-                                    res_users_id_info[res_users_id.id]['total_price_subtotal']
+                                    res_users_id_info[res_users_id.id][
+                                        'total_price_subtotal'
+                                    ]
                                 )
                                 res_users_id_info[res_users_id.id][
                                     'total_commission'
                                 ] = "{0:.2f}".format(
-                                    res_users_id_info[res_users_id.id]['total_commission']
+                                    res_users_id_info[res_users_id.id][
+                                        'total_commission'
+                                    ]
                                 )
                         # define
                         path_file = os.path.abspath(__file__).split('wizard/')[0]
                         header_info_line = self.env[
                             'account.invoice.line'
-                        ].sudo().define_account_invoice_line_header_info_commission()
+                        ].sudo().define_header_info_commission()
                         # generate zip file
                         file_names = []
                         for res_users_id in res_users_ids:
@@ -150,7 +161,8 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                             if res_users_id.id not in account_invoice_line_by_user_id:
                                 _logger.info(
                                     _('Very strange that ID %s does not exist '
-                                      'in account_invoice_line_by_user_id') % res_users_id.id
+                                      'in account_invoice_line_by_user_id') %
+                                    res_users_id.id
                                 )
                             else:
                                 # xlsx
@@ -174,17 +186,21 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                 # increase row
                                 row += 1
                                 # account_invoice_lines_by_user_id
-                                lines_by_user_id = account_invoice_line_by_user_id[res_users_id.id]
+                                lines_by_user_id = account_invoice_line_by_user_id[
+                                    res_users_id.id
+                                ]
                                 for line_by_user_id in lines_by_user_id:
                                     col = 0
-                                    for item in line_by_user_id:
-                                        value_item = str(line_by_user_id[item])
+                                    for item2 in line_by_user_id:
+                                        value_item = str(line_by_user_id[item2])
                                         worksheet.write(row, col, value_item)
                                         col += 1
                                     # increase row
                                     row += 1
                                 # add_total new line
-                                last_lines_by_user_id = lines_by_user_id[len(lines_by_user_id)-1]
+                                last_lines_by_user_id = lines_by_user_id[
+                                    len(lines_by_user_id)-1
+                                    ]
                                 col = 0
                                 for item in last_lines_by_user_id:
                                     if item == 'price_subtotal':
@@ -211,7 +227,9 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                             # Add multiple files to the zip
                             for file_name in file_names:
                                 file_name_split = file_name.split('/')
-                                file_name_real = file_name_split[len(file_name_split)-1]
+                                file_name_real = file_name_split[
+                                    len(file_name_split)-1
+                                    ]
                                 zipObj.write(file_name, file_name_real)
                             # close the Zip File
                             zipObj.close()
@@ -221,7 +239,9 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                             # eliminar archivos
                             for file_name in file_names:
                                 # os.remove(file_name)
-                                _logger.info(_('Here we will delete the file% s') % file_name)
+                                _logger.info(
+                                    _('Here we will delete the file% s') % file_name
+                                )
         # return
         return True
         '''

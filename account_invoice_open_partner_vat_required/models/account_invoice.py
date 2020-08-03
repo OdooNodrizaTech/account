@@ -15,7 +15,8 @@ class AccountInvoice(models.Model):
             if not obj.partner_id.vat:
                 allow_confirm = False
                 raise UserError(
-                    _('It is necessary to define a CIF / NIF for the customer of the invoice')
+                    _('It is necessary to define a CIF / NIF '
+                      'for the customer of the invoice')
                 )
         # allow_confirm
         if allow_confirm:

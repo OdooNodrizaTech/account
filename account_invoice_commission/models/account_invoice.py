@@ -57,7 +57,7 @@ class AccountInvoice(models.Model):
                                     if line_id_p.type != 'service':
                                         line_id.commission_percent = \
                                             item_u.invoice_commission_percent
-    
+
     @api.multi
     def action_regenerate_commission(self):
         for item in self:

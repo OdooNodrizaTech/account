@@ -8,8 +8,10 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_open(self):
-        for item in self:   
-            followers_extra_ids = self.env['account.invoice.mail.followers.extra'].search(
+        for item in self:
+            followers_extra_ids = self.env[
+                'account.invoice.mail.followers.extra'
+            ].search(
                 [
                     ('partner_id', '=', item.partner_id.id)
                 ]

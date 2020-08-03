@@ -24,7 +24,7 @@ class AccountInvoiceLine(models.Model):
                 item.commission = "{:.2f}".format(commission_line_item)
 
     @api.model
-    def define_account_invoice_line_header_info_commission(self):
+    def define_header_info_commission(self):
         return {
             'number': _('Invoice'),
             'name': _('Line description'),
@@ -38,7 +38,7 @@ class AccountInvoiceLine(models.Model):
         }
 
     @api.multi
-    def define_account_invoice_line_info_commission(self):
+    def define_info_commission(self):
         self.ensure_one()
         return_info = {
             'number': self.invoice_id.number,

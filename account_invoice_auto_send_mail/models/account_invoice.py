@@ -63,7 +63,8 @@ class AccountInvoice(models.Model):
                 and self.state in ['open', 'paid']:
             current_date = fields.Date.context_today(self)
             days_difference = (
-                    current_date - fields.Date.from_string(self.date_invoice)
+                    current_date -
+                    fields.Date.from_string(self.date_invoice)
             ).days
             # send_invoice
             send_invoice = False
