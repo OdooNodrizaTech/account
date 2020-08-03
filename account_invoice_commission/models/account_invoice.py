@@ -5,8 +5,8 @@ from odoo import api, models, fields
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
-        
-    commission = fields.Float( 
+
+    commission = fields.Float(
         string='Comission'
     )
     commission_date_paid = fields.Date(
@@ -14,15 +14,16 @@ class AccountInvoice(models.Model):
         readonly=True
     )
 
-    @api.one
+    @api.multi
     def action_invoice_open(self):
         return_action = super(AccountInvoice, self).action_invoice_open()
         # action_regenerate_commission_percent_lines
-        self.action_regenerate_commission_percent_lines()
+        for item in self:
+            item.action_regenerate_commission_percent_lines()
         # return
         return return_action
 
-    @api.one
+    @api.multi
     def write(self, vals):
         need_regenerate_commission = False
         # stage date_paid_status
@@ -34,36 +35,41 @@ class AccountInvoice(models.Model):
         if need_regenerate_commission:
             self.action_regenerate_commission()
         # return
-        return return_object        
-    
-    @api.multi    
+        return return_object
+
+    @api.multi
     def action_regenerate_commission_multi(self):
         for item in self:
             item.action_regenerate_commission_percent_lines()
-            item.action_regenerate_commission()    
-    
-    @api.one    
+            item.action_regenerate_commission()
+
+    @api.multi
     def action_regenerate_commission_percent_lines(self):
-        if self.type in ['out_invoice', 'out_refund']:
-            if self.state in ['open', 'paid']:
-                if self.user_id:
-                    for invoice_line_id in self.invoice_line_ids:
-                        if invoice_line_id.product_id:
-                            if not invoice_line_id.product_id.not_allow_account_invoice_commission:
-                                if invoice_line_id.product_id.type != 'service':
-                                    invoice_line_id.commission_percent = self.user_id.invoice_commission_percent
-    
-    @api.one    
+        for item in self:
+            if item.type in ['out_invoice', 'out_refund']:
+                if item.state in ['open', 'paid']:
+                    if item.user_id:
+                        item_u = item.user_id
+                        for line_id in item.invoice_line_ids:
+                            if line_id.product_id:
+                                line_id_p = line_id.product_id
+                                if not line_id_p.not_allow_account_invoice_commission:
+                                    if line_id_p.type != 'service':
+                                        line_id.commission_percent = \
+                                            item_u.invoice_commission_percent
+
+    @api.multi
     def action_regenerate_commission(self):
-        if self.type in ['out_invoice', 'out_refund']:
-            if self.state == 'paid':
-                if self.invoice_line_ids:
-                    # calculate_comission
-                    commission = 0
-                    # operations
-                    for invoice_line_id in self.invoice_line_ids:
-                        invoice_line_id.action_calculate_commission()                            
+        for item in self:
+            if item.type in ['out_invoice', 'out_refund']:
+                if item.state == 'paid':
+                    if item.invoice_line_ids:
+                        # calculate_comission
+                        commission = 0
+                        # operations
+                        for line_id in item.invoice_line_ids:
+                            line_id.action_calculate_commission()
+                            # commission
+                            commission += line_id.commission
                         # commission
-                        commission += invoice_line_id.commission                                                                                               
-                    # commission
-                    self.commission = "{:.2f}".format(commission)
+                        item.commission = "{:.2f}".format(commission)

@@ -15,7 +15,7 @@
             </field>
             <field name="residual" position="after">
                 <field name="commission" groups="base.group_system"/>
-	       </field>
+            </field>
             <xpath expr="//notebook/page/field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="after">
                 <field name="commission" readonly="1" groups="base.group_system"/>
                 <field name="commission_percent" readonly="1" groups="base.group_system"/>

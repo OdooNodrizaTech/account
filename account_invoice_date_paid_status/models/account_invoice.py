@@ -11,7 +11,7 @@ class AccountInvoice(models.Model):
         readonly=True
     )
 
-    @api.one
+    @api.multi
     def write(self, vals):
         # stage date_paid_status
         if vals.get('state') == 'paid' and not self.date_paid_status:

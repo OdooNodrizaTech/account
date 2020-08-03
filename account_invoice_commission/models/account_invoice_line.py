@@ -5,23 +5,26 @@ from odoo import api, models, fields, _
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
-        
-    commission = fields.Float( 
+
+    commission = fields.Float(
         string='Comision'
     )
-    commission_percent = fields.Float( 
+    commission_percent = fields.Float(
         string='Comision %'
     )
-    
-    @api.one
+
+    @api.multi
     def action_calculate_commission(self):
-        self.commission = 0        
-        if self.commission_percent != 0 and self.price_subtotal > 0 and self.product_id:
-            commission_line_item = (self.price_subtotal/100)*self.commission_percent
-            self.commission = "{:.2f}".format(commission_line_item)
+        for item in self:
+            item.commission = 0
+            if item.commission_percent != 0 \
+                    and item.price_subtotal > 0 \
+                    and item.product_id:
+                commission_line_item = (item.price_subtotal/100)*item.commission_percent
+                item.commission = "{:.2f}".format(commission_line_item)
 
     @api.model
-    def define_account_invoice_line_header_info_commission(self):
+    def define_header_info_commission(self):
         return {
             'number': _('Invoice'),
             'name': _('Line description'),
@@ -34,8 +37,9 @@ class AccountInvoiceLine(models.Model):
             'commission': _('Comisison')
         }
 
-    @api.one
-    def define_account_invoice_line_info_commission(self):
+    @api.multi
+    def define_info_commission(self):
+        self.ensure_one()
         return_info = {
             'number': self.invoice_id.number,
             'name': self.name,

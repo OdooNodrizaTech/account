@@ -8,22 +8,24 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def action_invoice_open(self):
-        for item in self:   
-            account_invoice_mail_followers_extra_ids = self.env['account.invoice.mail.followers.extra'].search(
+        for item in self:
+            followers_extra_ids = self.env[
+                'account.invoice.mail.followers.extra'
+            ].search(
                 [
                     ('partner_id', '=', item.partner_id.id)
                 ]
             )
-            for account_invoice_mail_followers_extra_id in account_invoice_mail_followers_extra_ids:
-                for partner_id_extra in account_invoice_mail_followers_extra_id.partner_ids_extra:
-                    mail_followers_ids = self.env['mail.followers'].search(
+            for follower_extra_id in followers_extra_ids:
+                for partner_id_extra in follower_extra_id.partner_ids_extra:
+                    followers_ids = self.env['mail.followers'].search(
                         [
                             ('partner_id', '=', self.partner_id.id),
                             ('res_model', '=', 'account.invoice'),
                             ('res_id', '=', self.id)
                         ]
                     )
-                    if len(mail_followers_ids) == 0:
+                    if len(followers_ids) == 0:
                         vals = {
                             'partner_id': partner_id_extra.id,
                             'res_model': 'account.invoice',

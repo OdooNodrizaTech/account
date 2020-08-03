@@ -1,0 +1,3 @@
+bank-payment
+OdooNodrizaTech-arelux https://github.com/OdooNodrizaTech/arelux
+OdooNodrizaTech-stock https://github.com/OdooNodrizaTech/stock

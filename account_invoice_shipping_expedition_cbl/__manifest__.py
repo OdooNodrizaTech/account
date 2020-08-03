@@ -3,14 +3,15 @@
 {
     "name": "Account Invoice Shipping Expedition CBL",
     "version": "12.0.1.0.0",
-    "author": "Odoo Nodriza Tech (ONT)",
+    "author": "Odoo Nodriza Tech (ONT), "
+              "Odoo Community Association (OCA)",
     "website": "https://nodrizatech.com/",
     "category": "Tools",
     "license": "AGPL-3",
     "depends": [
         "base",
         "account_invoice_shipping_expedition",
-        "shipping_expedition_cbl"
+        "shipping_expedition_cbl"  # https://github.com/OdooNodrizaTech/stock
     ],
     "external_dependencies": {
         "python": ["xlrd"],

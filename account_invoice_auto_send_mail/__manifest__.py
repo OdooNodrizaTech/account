@@ -5,7 +5,8 @@
     "version": "12.0.1.0.0",
     "category": "Sales Management",
     "website": "https://github.com/OCA/account-invoicing",
-    "author": "Odoo Nodriza Tech (ONT)",
+    "author": "Odoo Nodriza Tech (ONT), "
+              "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": ["account"],
     "data": [

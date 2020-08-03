@@ -3,7 +3,8 @@
 {
     "name": "Accounting Banking Mandate Auto Create",
     "version": "12.0.1.0.0",
-    "author": "Odoo Nodriza Tech (ONT)",
+    "author": "Odoo Nodriza Tech (ONT), "
+              "Odoo Community Association (OCA)",
     "website": "https://nodrizatech.com/",
     "category": "Tools",
     "license": "AGPL-3",
@@ -11,7 +12,7 @@
         "base",
         "sale",
         "account",
-        "account_banking_mandate"
+        "account_banking_mandate"  # https://github.com/OCA/bank-payment
     ],
     "data": [
         "data/ir_cron.xml",
