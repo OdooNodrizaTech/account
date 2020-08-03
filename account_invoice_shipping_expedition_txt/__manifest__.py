@@ -11,7 +11,7 @@
     "depends": [
         "base",
         "account_invoice_shipping_expedition",
-        "shipping_expedition_txt"
+        "shipping_expedition_txt"  # https://github.com/OdooNodrizaTech/stock
     ],
     "external_dependencies": {
         "python": ["xlrd"],

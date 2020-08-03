@@ -11,7 +11,7 @@
     "depends": [
         "base",
         "account_invoice_shipping_expedition",
-        "arelux_partner_questionnaire"
+        "arelux_partner_questionnaire"  # https://github.com/OdooNodrizaTech/arelux
     ],
     "data": [
         "views/account_invoice_view.xml",

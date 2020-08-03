@@ -11,7 +11,7 @@
     "depends": [
         "base",
         "account_invoice_shipping_expedition",
-        "shipping_expedition_nacex"
+        "shipping_expedition_nacex"  # https://github.com/OdooNodrizaTech/stock
     ],
     "data": [],
     "installable": True
