@@ -12,7 +12,7 @@
         "base",
         "sale",
         "account",
-        "account_banking_mandate"
+        "account_banking_mandate"  # https://github.com/OCA/bank-payment
     ],
     "data": [
         "data/ir_cron.xml",
