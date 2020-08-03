@@ -18,7 +18,7 @@ class ResPartnerBank(models.Model):
                             if item.acc_country_id:
                                 if item.acc_country_id.code:
                                     # limpiamos caracteres + reemplazamos espacios
-                                    account_number = str(item.acc_number).strip().replace(
+                                    account_number = item.acc_number.strip().replace(
                                         ' ',
                                         ''
                                     )
@@ -54,9 +54,9 @@ class ResPartnerBank(models.Model):
         return_item.check_iban_convert()
         # return
         return return_item
-    
+
     @api.multi
-    def write(self, vals):                        
+    def write(self, vals):
         return_write = super(ResPartnerBank, self).write(vals)
         # check_iban_convert
         for item in self:

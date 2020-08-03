@@ -2,6 +2,7 @@
 import logging
 from odoo import api, models, _
 from odoo.exceptions import Warning as UserError
+_logger = logging.getLogger(__name__)
 
 try:
     import xlrd
@@ -37,7 +38,7 @@ class AccountInvoice(models.Model):
             else:
                 data_lines = []
                 find_total = False
-                for row_index in xrange(73, sheet.nrows):
+                for row_index in range(73, sheet.nrows):
                     if not find_total:
                         row_values = sheet.row_values(row_index)
                         row_value_0 = row_values[0]
@@ -58,7 +59,7 @@ class AccountInvoice(models.Model):
                                     'total': str(row_values[14].replace(',', '.'))
                                 })
                 # generate_lines
-                for row_index in xrange(1, len(data_lines)):
+                for row_index in range(1, len(data_lines)):
                     data_line = data_lines[row_index]
                     # add_line
                     lines[data_line['exp']] = {

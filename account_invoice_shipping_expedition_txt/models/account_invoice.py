@@ -2,6 +2,7 @@
 import logging
 from odoo import api, models, _
 from odoo.exceptions import Warning as UserError
+_logger = logging.getLogger(__name__)
 
 try:
     import xlrd
@@ -29,7 +30,7 @@ class AccountInvoice(models.Model):
             sheet = book.sheet_by_name(str(sheet_names[0]))
             # generate_keys
             data_lines = []
-            for row_index in xrange(2, sheet.nrows):
+            for row_index in range(2, sheet.nrows):
                 data_line = []
                 values_row = sheet.row_values(row_index)
                 for value_row in values_row:
@@ -46,7 +47,7 @@ class AccountInvoice(models.Model):
                       'not match that of the invoice')
                 )
             else:
-                for row_index in xrange(1, len(data_lines)):
+                for row_index in range(1, len(data_lines)):
                     data_line = data_lines[row_index]
                     # replace
                     data_line[3] = data_line[3].replace('.0', '')

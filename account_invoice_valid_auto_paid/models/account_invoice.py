@@ -51,6 +51,8 @@ class AccountInvoice(models.Model):
                                     if payment_id.payment_type == 'inbound':
                                         for move_line_id in payment_id.move_line_ids:
                                             if move_line_id.credit > 0:
-                                                obj.assign_outstanding_credit(move_line_id.id)
+                                                obj.assign_outstanding_credit(
+                                                    move_line_id.id
+                                                )
         # return
         return return_action
