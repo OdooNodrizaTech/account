@@ -6,11 +6,11 @@ from datetime import datetime
 
 class AccountBankingMandate(models.Model):
     _inherit = 'account.banking.mandate'
-    
+
     auto_create = fields.Boolean(
         string="Auto create"
     )
-    
+
     @api.model
     def cron_fix_auto_create_banking_mandate(self):
         current_date = datetime.today()
@@ -28,7 +28,11 @@ class AccountBankingMandate(models.Model):
             if partner_bank_ids:
                 partner_bank_ids = self.env['res.partner.bank'].search(
                     [
-                        ('partner_id', 'not in', partner_bank_ids.mapped('partner_id').ids)
+                        (
+                            'partner_id',
+                            'not in',
+                            partner_bank_ids.mapped('partner_id').ids
+                        )
                     ]
                 )
                 if partner_bank_ids:
@@ -41,7 +45,9 @@ class AccountBankingMandate(models.Model):
                             'recurrent_sequence_type': 'recurring',
                             'partner_bank_id': partner_bank_id.id,
                             'partner_id': partner_bank_id.partner_id.id,
-                            'signature_date': current_date.strftime("%Y-%m-%d"),                                                             
+                            'signature_date': current_date.strftime("%Y-%m-%d"),
                         }
-                        mandate_obj = self.env['account.banking.mandate'].sudo().create(vals)
+                        mandate_obj = self.env[
+                            'account.banking.mandate'
+                        ].sudo().create(vals)
                         mandate_obj.validate()

@@ -12,10 +12,11 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for item in self:
-            if itemtype == "in_invoice" and not item.reference:
+            if item.type == "in_invoice" and not item.reference:
                 allow_confirm = False
                 raise UserError(
-                    _('It is necessary to define a supplier reference to validate the purchase invoice')
+                    _('It is necessary to define a supplier '
+                      'reference to validate the purchase invoice')
                 )
         # allow_confirm
         if allow_confirm:

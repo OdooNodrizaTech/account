@@ -20,4 +20,3 @@
     ],
     "installable": True
 }
-

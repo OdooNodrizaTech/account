@@ -62,7 +62,9 @@ class AccountInvoice(models.Model):
                 and not self.date_invoice_send_mail \
                 and self.state in ['open', 'paid']:
             current_date = fields.Date.context_today(self)
-            days_difference = (current_date - fields.Date.from_string(self.date_invoice)).days
+            days_difference = (
+                    current_date - fields.Date.from_string(self.date_invoice)
+            ).days
             # send_invoice
             send_invoice = False
             if self.state == 'paid':
@@ -85,7 +87,7 @@ class AccountInvoice(models.Model):
                 ('type', 'in', ('out_invoice', 'out_refund')),
                 ('journal_id.invoice_mail_template_id', '!=', False),
                 ('date_invoice_send_mail', '=', False)
-             ],
+            ],
             order="date_invoice asc",
             limit=200
         )
@@ -103,4 +105,3 @@ class AccountInvoice(models.Model):
                     count,
                     len(invoices)
                 ))
-

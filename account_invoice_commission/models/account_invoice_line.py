@@ -5,14 +5,14 @@ from odoo import api, models, fields, _
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
-        
-    commission = fields.Float( 
+
+    commission = fields.Float(
         string='Comision'
     )
-    commission_percent = fields.Float( 
+    commission_percent = fields.Float(
         string='Comision %'
     )
-    
+
     @api.multi
     def action_calculate_commission(self):
         for item in self:
