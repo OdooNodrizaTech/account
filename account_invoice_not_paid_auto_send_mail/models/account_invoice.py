@@ -92,7 +92,7 @@ class AccountInvoice(models.Model):
                     ('residual', '>', 0),
                     ('date_due', '<', date_due_filter.strftime("%Y-%m-%d")),
                     ('date_invoice_not_paid_send_mail', '=', False)
-                 ]
+                ]
             )
             if invoice_ids:
                 for invoice_id in invoice_ids:

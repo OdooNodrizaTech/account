@@ -1,10 +1,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, tools
+from odoo import api, models
 
 
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'                     
+    _inherit = 'account.invoice'
 
     @api.multi
     def action_invoice_open(self):
@@ -18,14 +18,14 @@ class AccountInvoice(models.Model):
                     for line_id in obj.invoice_line_ids:
                         order_line_ids = self.env['sale.order.line'].sudo().search(
                             [
-                                ('invoice_lines', 'in', invoice_line_id.id)
+                                ('invoice_lines', 'in', line_id.id)
                             ]
                         )
                         if order_line_ids:
                             for order_line_id in order_line_ids:
-                                for transaction_id in order_line_id.order_id.transaction_ids:
-                                    if transaction_id.id not in transaction_ids:
-                                        transaction_ids.append(int(transaction_id.id))
+                                for t_id in order_line_id.order_id.transaction_ids:
+                                    if t_id.id not in transaction_ids:
+                                        transaction_ids.append(int(t_id.id))
                     # check
                     if len(transaction_ids) > 0:
                         transaction_ids = self.env['payment.transaction'].sudo().search(
@@ -38,7 +38,11 @@ class AccountInvoice(models.Model):
                         if transaction_ids:
                             payment_ids = self.env['account.payment'].sudo().search(
                                 [
-                                    ('payment_transaction_id', 'in', transaction_ids.ids),
+                                    (
+                                        'payment_transaction_id',
+                                        'in',
+                                        transaction_ids.ids
+                                    ),
                                     ('state', '!=', 'draft'),
                                 ]
                             )
@@ -47,6 +51,6 @@ class AccountInvoice(models.Model):
                                     if payment_id.payment_type == 'inbound':
                                         for move_line_id in payment_id.move_line_ids:
                                             if move_line_id.credit > 0:
-                                                obj.assign_outstanding_credit(move_line_id.id)                                    
+                                                obj.assign_outstanding_credit(move_line_id.id)
         # return
         return return_action

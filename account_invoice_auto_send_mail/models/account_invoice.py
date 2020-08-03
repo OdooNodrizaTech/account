@@ -61,11 +61,10 @@ class AccountInvoice(models.Model):
         if self.type in ['out_invoice', 'out_refund'] \
                 and not self.date_invoice_send_mail \
                 and self.state in ['open', 'paid']:
-            current_date = fields.Date.context_today(self)
-            days_difference = (
-                    current_date -
-                    fields.Date.from_string(self.date_invoice)
-            ).days
+            c_date = fields.Date.context_today(self)
+            days_difference = (c_date - fields.Date.from_string(
+                self.date_invoice
+            )).days
             # send_invoice
             send_invoice = False
             if self.state == 'paid':

@@ -27,7 +27,7 @@ class AccountInvoice(models.Model):
     def shipping_expedition_datas_lines_process(self, lines):
         self.ensure_one()
         auto_create_new_shipping_expedition = False
-        delivery_carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
+        carrier_id = self._get_delivery_carrier_filter_partner_id()[0]
         if len(lines) > 0:
             # filter_key
             filter_key = False
@@ -47,7 +47,7 @@ class AccountInvoice(models.Model):
             expedition_ids = self.env['shipping.expedition'].sudo().search(
                 [
                     (filter_key, 'in', filter_values),
-                    ('carrier_id.carrier_type', '=', delivery_carrier_id.carrier_type)
+                    ('carrier_id.carrier_type', '=', carrier_id.carrier_type)
                 ]
             )
             if expedition_ids:
@@ -68,7 +68,8 @@ class AccountInvoice(models.Model):
             # auto-create
             if auto_create_new_shipping_expedition and len(lines) > 0:
                 _logger.info(
-                    _('Missing to create %s expeditions that have invoiced us and we did not have')
+                    _('Missing to create %s expeditions that have '
+                      'invoiced us and we did not have')
                     % len(lines)
                 )
                 lines_old = lines
@@ -82,7 +83,7 @@ class AccountInvoice(models.Model):
                 picking_ids = self.env['stock.picking'].sudo().search(
                     [
                         ('name', 'in', origins),
-                        ('carrier_id.carrier_type', '=', delivery_carrier_id.carrier_type)
+                        ('carrier_id.carrier_type', '=', carrier_id.carrier_type)
                     ]
                 )
                 _logger.info(len(picking_ids))

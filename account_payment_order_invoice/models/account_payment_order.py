@@ -6,15 +6,15 @@ from datetime import datetime
 
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
-    
-    amount_untaxed_invoice = fields.Float( 
+
+    amount_untaxed_invoice = fields.Float(
         string='Amount untaxed invoice'
     )
     invoice_id = fields.Many2one(
-        comodel_name='account.invoice',     
+        comodel_name='account.invoice',
         string='Invoice'
-    )                                
-   
+    )
+
     @api.multi
     def generated2uploaded(self):
         if self.payment_type == 'inbound' \
@@ -33,7 +33,7 @@ class AccountPaymentOrder(models.Model):
                     'date_invoice': datetime.today(),
                     'state': 'draft',
                     'type': 'in_invoice',
-                    'comment': ' ',                                         
+                    'comment': ' '
                 }
                 invoice_obj = self.env['account.invoice'].sudo().create(vals)
                 self.invoice_id = invoice_obj.id
@@ -43,8 +43,8 @@ class AccountPaymentOrder(models.Model):
                     'name': product.name,
                     'quantity': 1,
                     'price_unit': self.amount_untaxed_invoice,
-                    'account_id': product.property_account_expense_id.id,                    
-                }                
+                    'account_id': product.property_account_expense_id.id,
+                }
                 invoice_line_obj = self.env['account.invoice.line'].sudo().create(vals)
                 invoice_line_obj._onchange_product_id()
                 invoice_line_obj.compute_taxes()

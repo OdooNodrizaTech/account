@@ -207,7 +207,9 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                         worksheet.write(
                                             row,
                                             col,
-                                            res_users_id_info_item['total_price_subtotal']
+                                            res_users_id_info_item[
+                                                'total_price_subtotal'
+                                            ]
                                         )
                                     elif item == 'commission':
                                         worksheet.write(
@@ -220,7 +222,7 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                 # close
                                 workbook.close()
                         # generate_zip_file
-                        if len(file_names)>0:
+                        if len(file_names) > 0:
                             zip_name = '%scomisiones.zip' % path_file
                             # zip_operations
                             zipObj = ZipFile(zip_name, 'w')
@@ -244,14 +246,3 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                                 )
         # return
         return True
-        '''
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'wizard.account.invoice.line.commission',
-            'view_mode': 'form',
-            'res_id': self.id,
-            'views': [(False, 'form')],
-            'target': 'new',
-        }
-        '''
-

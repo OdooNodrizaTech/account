@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models, fields
+from odoo import models, fields
 
 
 class ResPartner(models.Model):
@@ -38,7 +38,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 1',
     )
@@ -74,7 +74,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 2',
     )
@@ -110,7 +110,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 3',
     )
@@ -146,11 +146,10 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 4',
     )
-    
     custom_day_due_1_purchase = fields.Selection(
         [
             ('01', '1'),
@@ -183,7 +182,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 1',
     )
@@ -219,7 +218,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 2',
     )
@@ -255,7 +254,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 3',
     )
@@ -291,7 +290,7 @@ class ResPartner(models.Model):
             ('28', '28'),
             ('29', '29'),
             ('30', '30'),
-            ('31', '31'),                    
+            ('31', '31'),
         ],
         string='Custom day due 4',
     )

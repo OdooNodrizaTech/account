@@ -5,8 +5,8 @@ from odoo import fields, models
 
 class ResBank(models.Model):
     _inherit = 'res.bank'
-    
+
     partner_id = fields.Many2one(
-        comodel_name='res.partner',     
+        comodel_name='res.partner',
         string='Partner'
     )

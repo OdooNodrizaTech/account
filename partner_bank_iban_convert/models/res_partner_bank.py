@@ -1,11 +1,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models
-from odoo.exceptions import Warning
-from datetime import datetime
-
 import requests
 import json
+
 
 class ResPartnerBank(models.Model):
     _inherit = 'res.partner.bank'
@@ -20,12 +18,19 @@ class ResPartnerBank(models.Model):
                             if item.acc_country_id:
                                 if item.acc_country_id.code:
                                     # limpiamos caracteres + reemplazamos espacios
-                                    account_number = str(item.acc_number).strip().replace(' ', '')
+                                    account_number = str(item.acc_number).strip().replace(
+                                        ' ',
+                                        ''
+                                    )
                                     # revisamos longitud de la cuenta bancaria
                                     if len(account_number) == 20:
-                                        account_number = account_number.replace(item.bank_id.code, '')
+                                        account_number = account_number.replace(
+                                            item.bank_id.code,
+                                            ''
+                                        )
                                     # request
-                                    url = 'https://openiban.com/v2/calculate/%s/%s/%s' % (
+                                    url = '%s/v2/calculate/%s/%s/%s' % (
+                                        'https://openiban.com',
                                         item.acc_country_id.code,
                                         item.bank_id.code,
                                         account_number
@@ -38,7 +43,8 @@ class ResPartnerBank(models.Model):
                                                 if 'iban' in response_json:
                                                     if response_json['iban'] != '':
                                                         # update
-                                                        item.acc_number = str(response_json['iban'])
+                                                        item.acc_number = \
+                                                            str(response_json['iban'])
                                                         item.acc_type = 'iban'
 
     @api.model

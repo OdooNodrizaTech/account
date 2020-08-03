@@ -1,5 +1,5 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
+import logging
 from odoo import api, models, _
 from odoo.exceptions import Warning as UserError
 
@@ -31,7 +31,8 @@ class AccountInvoice(models.Model):
             num_factura = str(values_line_33[4])
             if num_factura != self.reference:
                 raise UserError(
-                    _('The invoice number of the line does not match that of the invoice')
+                    _('The invoice number of the line does not match '
+                      'that of the invoice')
                 )
             else:
                 data_lines = []
