@@ -1,7 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
 from odoo import api, fields, models, _
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning as UserError
 
 import xlsxwriter
 import os
@@ -60,7 +59,7 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                 user_ids.append(user_id.id)
             # operations
             if len(user_ids) == 0:
-                raise Warning(_('It is necessary to select at least 1 user'))
+                raise UserError(_('It is necessary to select at least 1 user'))
             else:
                 filters = [
                     ('state', '=', 'paid'),
@@ -79,7 +78,7 @@ class WizardAccountInvoiceLineCommission(models.TransientModel):
                 account_invoice_ids = self.env['account.invoice'].sudo().search(filters)
                 # operations
                 if len(account_invoice_ids) == 0:
-                    raise Warning(_('No invoices matching the criteria were found'))
+                    raise UserError(_('No invoices matching the criteria were found'))
                 else:
                     res_users_ids = self.env['res.users'].sudo().search(
                         [

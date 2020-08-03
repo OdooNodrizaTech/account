@@ -1,7 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
 from odoo import api, models, _
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning as UserError
 from datetime import datetime
 _logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ class AccountInvoice(models.Model):
                     if self.date_invoice:
                         if self.date_invoice <= date_limit:
                             validate_invoice_ok = False
-                            raise Warning(
+                            raise UserError(
                                 _('The specified invoice date cannot be '
                                   'less than the one used to block '
                                   'invoices %s')
@@ -45,7 +45,7 @@ class AccountInvoice(models.Model):
                     if self.date:
                         if self.date <= date_limit:
                             validate_invoice_ok = False
-                            raise Warning(
+                            raise UserError(
                                 _('The specified accounting date of the '
                                   'invoice cannot be less than the one '
                                   'used to block invoices %s')
@@ -54,7 +54,7 @@ class AccountInvoice(models.Model):
                     else:
                         if self.date_invoice <= date_limit:
                             validate_invoice_ok = False
-                            raise Warning(
+                            raise UserError(
                                 _('The specified invoice date cannot be '
                                   'less than the one used to block '
                                   'invoices %s')
@@ -64,7 +64,7 @@ class AccountInvoice(models.Model):
         if validate_invoice_ok:
             return super(AccountInvoice, self).action_invoice_open()
 
-    @api.one
+    @api.multi
     def action_invoice_cancel(self):
         cancel_invoice_ok = True
         date_limit = str(self.env['ir.config_parameter'].sudo().get_param(
@@ -89,7 +89,7 @@ class AccountInvoice(models.Model):
                 if self.type in ['out_invoice', 'out_refund']:
                     if self.date_invoice <= date_limit:
                         cancel_invoice_ok = False
-                        raise Warning(
+                        raise UserError(
                             _('The invoice cannot be canceled as the date '
                               'of the invoice is lower than the one used '
                               'to block invoices %s')
@@ -99,7 +99,7 @@ class AccountInvoice(models.Model):
                     if self.date:
                         if self.date <= date_limit:
                             cancel_invoice_ok = False
-                            raise Warning(
+                            raise UserError(
                                 _('The invoice cannot be canceled as the '
                                   'accounting date of the invoice is lower '
                                   'than the one used to block invoices %s')

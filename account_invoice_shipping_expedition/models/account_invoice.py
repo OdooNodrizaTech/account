@@ -117,7 +117,7 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def shipping_expedition_datas_override(self, file_encoded):
-        self.ensure_one
+        self.ensure_one()
         return False
 
     @api.multi

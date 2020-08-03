@@ -14,6 +14,11 @@
         "sale",
         "account_invoice_date_paid_status"
     ],
+    "external_dependencies": {
+        "python": [
+            "unidecode"
+        ],
+    },
     "data": [
         "views/account_invoice_view.xml",
         "views/product_template_view.xml",
