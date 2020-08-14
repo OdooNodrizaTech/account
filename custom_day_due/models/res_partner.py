@@ -184,7 +184,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),
         ],
-        string='Custom day due 1',
+        string='Custom day due 1 (purchase)',
     )
     custom_day_due_2_purchase = fields.Selection(
         [
@@ -220,7 +220,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),
         ],
-        string='Custom day due 2',
+        string='Custom day due 2 (purchase)',
     )
     custom_day_due_3_purchase = fields.Selection(
         [
@@ -256,7 +256,7 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),
         ],
-        string='Custom day due 3',
+        string='Custom day due 3 (purchase)',
     )
     custom_day_due_4_purchase = fields.Selection(
         [
@@ -292,5 +292,5 @@ class ResPartner(models.Model):
             ('30', '30'),
             ('31', '31'),
         ],
-        string='Custom day due 4',
+        string='Custom day due 4 (purchase)',
     )
