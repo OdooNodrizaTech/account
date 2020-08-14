@@ -2,10 +2,8 @@ El módulo contiene el desarrollo para el envío automático de facturas no paga
 
 
 ## Parámetros de configuración
-```
-account_invoice_not_paid_days_check
-account_invoice_not_paid_template_id
-``` 
+- account_invoice_not_paid_days_check
+- account_invoice_not_paid_template_id
 
 ## Cron:
 
