@@ -16,12 +16,18 @@ class AccountInvoice(models.Model):
             test_condition = (tools.config['test_enable'] and
                               not self.env.context.get('test_vat'))
 
+            _logger.info('obj.partner_id.id')
+            _logger.info(obj.partner_id.id)
+            _logger.info('obj.partner_id.name')
+            _logger.info(obj.partner_id.name)
+            _logger.info('obj.partner_id.vat')
+            _logger.info(obj.partner_id.vat)
             _logger.info('test_condition')
             _logger.info(test_condition)
             _logger.info('test_enable')
             _logger.info(tools.config['test_enable'])
             _logger.info('self.env.context')
-            _logger.info(self.env.context)
+            _logger.info(self.env.context.get())
 
             if not test_condition and not obj.partner_id.vat:
                 allow_confirm = False
