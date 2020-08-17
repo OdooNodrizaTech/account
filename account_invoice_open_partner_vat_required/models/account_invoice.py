@@ -1,8 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-import logging
 from odoo import api, models, _
 from odoo.exceptions import Warning as UserError
-_logger = logging.getLogger(__name__)
 
 
 class AccountInvoice(models.Model):
@@ -13,9 +11,8 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for item in self:
-            _logger.info('self.env.ref')
-            _logger.info(item.env.ref)
-            if item.env.ref not in 'demo_invoice_':
+            base_partner_12 = self.env.ref('base.res_partner_12')
+            if item.partner_id.id != base_partner_12.id:
                 if not item.partner_id.vat:
                     allow_confirm = False
                     raise UserError(
