@@ -12,11 +12,11 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         allow_confirm = True
         # check
-        for obj in self:
+        for item in self:
             _logger.info('self.env.ref')
-            _logger.info(self.env.ref)
-            if self.env.ref not in 'demo_invoice_':
-                if not obj.partner_id.vat:
+            _logger.info(item.env.ref)
+            if item.env.ref not in 'demo_invoice_':
+                if not item.partner_id.vat:
                     allow_confirm = False
                     raise UserError(
                         _('It is necessary to define a CIF / NIF '
