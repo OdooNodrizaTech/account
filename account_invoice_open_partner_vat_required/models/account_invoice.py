@@ -12,13 +12,18 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for obj in self:
-            if not obj.partner_id.vat:
-                if not tools.config['test_enable']:
-                    allow_confirm = False
-                    raise UserError(
-                        _('It is necessary to define a CIF / NIF '
-                          'for the customer of the invoice')
-                    )
+            if obj.partner_id.vat:
+                continue
+            test_condition = (tools.config['test_enable'] and
+                              not self.env.context.get('test_vat'))
+            if test_condition:
+                continue
+
+            allow_confirm = False
+            raise UserError(
+                _('It is necessary to define a CIF / NIF '
+                  'for the customer of the invoice')
+            )
         # allow_confirm
         if allow_confirm:
             return super(AccountInvoice, self).action_invoice_open()
