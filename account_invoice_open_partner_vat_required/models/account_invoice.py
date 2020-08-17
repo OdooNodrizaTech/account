@@ -1,7 +1,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
+import logging
 from odoo import api, models, tools, _
 from odoo.exceptions import Warning as UserError
+_logger = logging.getLogger(__name__)
 
 
 class AccountInvoice(models.Model):
@@ -14,6 +15,13 @@ class AccountInvoice(models.Model):
         for obj in self:
             test_condition = (tools.config['test_enable'] and
                               not self.env.context.get('test_vat'))
+
+            _logger.info('test_condition')
+            _logger.info(test_condition)
+            _logger.info('test_enable')
+            _logger.info(tools.config['test_enable'])
+            _logger.info('self.env.context')
+            _logger.info(self.env.context)
 
             if not test_condition and not obj.partner_id.vat:
                 allow_confirm = False
