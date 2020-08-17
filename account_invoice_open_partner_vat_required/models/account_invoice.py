@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 import logging
-from odoo import api, models, tools, _
+from odoo import api, models, _
 from odoo.exceptions import Warning as UserError
 _logger = logging.getLogger(__name__)
 
