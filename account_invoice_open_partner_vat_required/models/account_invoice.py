@@ -1,6 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, models, _
+from odoo.tools import config
 from odoo.exceptions import Warning as UserError
 
 
@@ -13,11 +14,14 @@ class AccountInvoice(models.Model):
         # check
         for obj in self:
             if not obj.partner_id.vat:
-                allow_confirm = False
-                raise UserError(
-                    _('It is necessary to define a CIF / NIF '
-                      'for the customer of the invoice')
-                )
+                test_condition = (config['test_enable'] and
+                                  not self.env.context.get('test_vat'))
+                if not test_condition:
+                    allow_confirm = False
+                    raise UserError(
+                        _('It is necessary to define a CIF / NIF '
+                          'for the customer of the invoice')
+                    )
         # allow_confirm
         if allow_confirm:
             return super(AccountInvoice, self).action_invoice_open()
