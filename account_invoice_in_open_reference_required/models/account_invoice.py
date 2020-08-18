@@ -11,9 +11,13 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
         allow_confirm = True
         # check
-        base_partner_12 = self.env.ref('base.res_partner_12')
+        partner_ids_exclude = [
+            self.env.ref('base.res_partner_1').id,
+            self.env.ref('base.res_partner_2').id,
+            self.env.ref('base.res_partner_12').id
+        ]
         for item in self:
-            if base_partner_12.id != item.partner_id.id:
+            if item.partner_id.id not in partner_ids_exclude:
                 if item.type == "in_invoice" and not item.reference:
                     allow_confirm = False
                     raise UserError(
