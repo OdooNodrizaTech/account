@@ -13,9 +13,14 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for item in self:
+            base_partner_1 = self.env.ref('base.res_partner_1')
             base_partner_2 = self.env.ref('base.res_partner_2')
             base_partner_12 = self.env.ref('base.res_partner_12')
-            partner_ids_exclude = [base_partner_2.id, base_partner_12.id]
+            partner_ids_exclude = [
+                base_partner_1.id,
+                base_partner_2.id,
+                base_partner_12.id
+            ]
             _logger.info('partner_ids_exclude')
             _logger.info(partner_ids_exclude)
             _logger.info('item.partner_id.id')
