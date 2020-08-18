@@ -13,12 +13,14 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for item in self:
+            base_partner_2 = self.env.ref('base.res_partner_2')
             base_partner_12 = self.env.ref('base.res_partner_12')
-            _logger.info('base_partner_12.id')
-            _logger.info(base_partner_12.id)
+            partner_ids_exclude = [base_partner_2.id, base_partner_12.id]
+            _logger.info('partner_ids_exclude')
+            _logger.info(partner_ids_exclude)
             _logger.info('item.partner_id.id')
             _logger.info(item.partner_id.id)
-            if item.partner_id.id != base_partner_12.id:
+            if item.partner_id.id not in partner_ids_exclude:
                 if not item.partner_id.vat:
                     allow_confirm = False
                     raise UserError(
