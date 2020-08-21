@@ -4,7 +4,7 @@
 
         <record id="account_locked_by_date_limit" model="ir.config_parameter">
             <field name="key">account_locked_by_date_limit</field>
-            <field name="value">2010-01-01</field>
+            <field name="value">1990-01-01</field>
         </record>
 
     </data>
