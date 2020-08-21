@@ -12,6 +12,7 @@ class AccountMove(models.Model):
         lock_to_date = str(self.env['ir.config_parameter'].sudo().get_param(
             'account_locked_by_date_limit')
         )
+        lock_to_date = datetime.strptime(lock_to_date, "%Y-%m-%d").date()
         for move in self:
             if move.date <= lock_to_date:
                 message = _("No puedes crear/Modificar asientos con "
