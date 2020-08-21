@@ -6,7 +6,7 @@
     "author": "Odoo Nodriza Tech (ONT), "
               "Odoo Community Association (OCA)",
     "website": "https://nodrizatech.com/",
-    "category": "Tools",
+    "category": "Account",
     "license": "AGPL-3",
     "depends": [
         "account",
