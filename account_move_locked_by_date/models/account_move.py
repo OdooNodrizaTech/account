@@ -8,7 +8,7 @@ class AccountMove(models.Model):
 
     @api.multi
     def _check_lock_date(self):
-        res = super()._check_lock_date()
+        res = super(AccountMove, self)._check_lock_date()
         lock_to_date = str(self.env['ir.config_parameter'].sudo().get_param(
             'account_locked_by_date_limit')
         )
