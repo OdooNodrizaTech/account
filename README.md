@@ -24,5 +24,12 @@ nombre | version
 [account_invoice_shipping_expedition_nacex](account_invoice_shipping_expedition_nacex/) | 10.0.1.0.0
 [account_invoice_shipping_expedition_txt](account_invoice_shipping_expedition_txt/) | 10.0.1.0.0
 [account_invoice_valid_auto_paid](account_invoice_valid_auto_paid/) | 10.0.1.0.0
+[account_move_locked_by_date](account_move_locked_by_date/) | 10.0.1.0.0
+[account_payment_order_invoice](account_payment_order_invoice/) | 10.0.1.0.0
 [custom_day_due](custom_day_due/) | 10.0.1.0.0
 [partner_bank_iban_convert](partner_bank_iban_convert/) | 10.0.1.0.0
+
+## Addons no soportados
+
+### account_invoice_locked_by_dates 
+Tiene una funcionalidad similar al account_move_locked_by_date (que es que realmente se debe usar) por lo que pasa a ser innecesario.
