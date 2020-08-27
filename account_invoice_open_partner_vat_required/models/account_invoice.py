@@ -13,11 +13,15 @@ class AccountInvoice(models.Model):
         allow_confirm = True
         # check
         for item in self:
-            partner_ids_exclude = [
-                self.env.ref('base.res_partner_1').id,
-                self.env.ref('base.res_partner_2').id,
-                self.env.ref('base.res_partner_12').id
-            ]
+            try:
+                partner_ids_exclude = [
+                    self.env.ref('base.res_partner_1').id,
+                    self.env.ref('base.res_partner_2').id,
+                    self.env.ref('base.res_partner_12').id
+                ]
+            except:
+                partner_ids_exclude = []
+
             if item.partner_id.id not in partner_ids_exclude:
                 if not item.partner_id.vat:
                     allow_confirm = False
